@@ -1,6 +1,6 @@
 
 class ErrorMessage{
-  constructor(message, error, code) {
+  constructor(message, error = undefined , code = undefined) {
     this.message = message,
     this.error =  error
     this.code = code
