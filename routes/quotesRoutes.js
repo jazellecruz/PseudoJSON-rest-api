@@ -2,8 +2,6 @@
 const express = require("express");
 const router = express.Router();
 const Quote = require("../models/quotesModel");
-const QuotesResponse = require("../classes/quote")
-const ErrorMessage = require("../classes/error")
 const query = require("../queries/quote")
 
 router.get("/quotes", async(req, res) => {
