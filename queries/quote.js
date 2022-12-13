@@ -7,16 +7,16 @@ const getQuotes = async(query) => {
     let response;
     
     try{
-      let result = await Quote.find(query, {"_id" : false, "__v" : false });
+      let result = await Quote.find(query, {"_id" : false, "__v" : false }).sort({id : 1});
 
       if(!result.length || !Array.isArray(result)) {
-        response = new ErrorMessage(`Resource with conditions: ${query} does not exist.`)
+        response = new ErrorMessage(`Resource with conditions: ${(query)} does not exist.`)
       } else {
         response = new QuotesResponse(result);
       }
 
     } catch(err) {
-      response = new ErrorMessage("An Error occured while fetching data.", err)
+      response = new ErrorMessage("An Error occured while fetching data.", error = err)
     }
 
     return response;
@@ -46,7 +46,7 @@ const getQuoteById = async(id) => {
 const postQuote = async(entry) => {
   let response;
   let { id, author, quote, category } = await entry
-
+  
   let newQuote = await new Quote({
     id: id,
     author: author,
