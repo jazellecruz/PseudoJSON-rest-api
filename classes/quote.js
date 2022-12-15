@@ -1,8 +1,9 @@
 
 class QuotesResponse {
-  constructor(quotes) {
+  constructor(quotes, message = undefined) {
     this.quotes = quotes;
     this.total_received = quotes.length;
+    this.message = message;
   }
 }
 
