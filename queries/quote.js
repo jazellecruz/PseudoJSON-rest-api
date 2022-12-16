@@ -5,12 +5,20 @@ const Quote = require("../models/quotesModel");
 // get all quotes w/ or w/o query
 const getQuotes = async(query) => {
     let response;
-    
+    let limit = query.pageSize;
+    let page = query.page - 1;
+
     try{
-      let result = await Quote.find(query, {"_id" : false, "__v" : false }).sort({id : 1});
+      let result = await Quote.find(query, {"_id" : false, "__v" : false })
+          .limit(limit)
+          .skip(limit * page)
+          .sort({id : 1});
 
       if(!result.length || !Array.isArray(result)) {
-        response = new ErrorMessage(`Resource with conditions: ${query} does not exist.`)
+        response = new ErrorMessage(
+          `Resource with conditions: ${query} does not exist.`,
+          error = "No resources found.",
+          code = 404)
       } else {
         response = new QuotesResponse(result);
       }
@@ -55,7 +63,7 @@ const postQuote = async(entry) => {
   });
 
   await newQuote.save()
-  .then(res => response = new QuotesResponse(res) )
+  .then(res => response = new QuotesResponse(res, message = `Successfully added quote with id: ${id}.`))
   .catch(err => response = new ErrorMessage("An Error occured while posting data.", err))
 
   return response;
@@ -70,7 +78,7 @@ const modifyQuote = async(id, entry) => {
       if (!result.modifiedCount) {
         response = new ErrorMessage("Request is acknowledged but no document is modified")
       } 
-      response = "Document is successfully modified!"
+      response = `Document with id: ${id} is successfully modified!`
     }
   } catch(err) {
     response = new ErrorMessage("An Error occured while performing request.", err)
