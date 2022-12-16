@@ -20,7 +20,10 @@ const getQuotes = async(query) => {
           error = "No resources found.",
           code = 404)
       } else {
-        response = new QuotesResponse(result);
+        response = new QuotesResponse(result, 
+          message = "Successfully fullfilled request!",
+          page = page, 
+          limit = limit);
       }
 
     } catch(err) {
