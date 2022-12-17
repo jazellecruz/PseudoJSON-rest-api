@@ -1,10 +1,10 @@
 
 class QuotesResponse {
-  constructor(quotes, message = undefined, page = 1, limit = 0) {
+  constructor(quotes, page = 1, limit = 0) {
+    this.message = "Successfully fullfilled request!";
     this.quotes = quotes;
     this.total_received = quotes.length;
-    this.message = message;
-    this.page = page + 1;
+    this.page = page;
     this.limit = limit
   }
 }
