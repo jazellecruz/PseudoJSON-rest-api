@@ -1,6 +1,7 @@
 const QuotesResponse = require("../classes/quote");
 const ErrorMessage = require("../classes/error");
 const Quote = require("../models/quotesModel");
+const helpers = require("../helpers/helpers")
 
 // get all quotes w/ or w/o query
 const getQuotes = async(query) => {
@@ -16,14 +17,12 @@ const getQuotes = async(query) => {
 
       if(!result.length || !Array.isArray(result)) {
         response = new ErrorMessage(
-          `Resource with conditions: ${query} does not exist.`,
-          error = "No resources found.",
+          `Resource with conditions: ${helpers.stringify(query)} does not exist.`,
+          error = "Resources Not Found.",
           code = 404)
       } else {
-        response = new QuotesResponse(result, 
-          message = "Successfully fullfilled request!",
-          page = page, 
-          limit = limit);
+        response = new QuotesResponse(result, page = query.page, limit = limit);
+          // directly get page num from url to avoid unnecessary incrementation in class
       }
 
     } catch(err) {
@@ -41,7 +40,11 @@ const getQuoteById = async(id) => {
     let result = await Quote.find({ id : id }, {"_id" : false, "__v" : false });
 
     if(!result.length || !Array.isArray(result)) {
-      response = new ErrorMessage(`Resource with id: ${id} does not exist.`)
+      response = new ErrorMessage(
+        `Resource with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
     } else {
       response = new QuotesResponse(result);
     }
@@ -66,7 +69,7 @@ const postQuote = async(entry) => {
   });
 
   await newQuote.save()
-  .then(res => response = new QuotesResponse(res, message = `Successfully added quote with id: ${id}.`))
+  .then(res => response = new QuotesResponse(res))
   .catch(err => response = new ErrorMessage("An Error occured while posting data.", err))
 
   return response;
@@ -79,7 +82,7 @@ const modifyQuote = async(id, entry) => {
     let result = await Quote.updateOne({ id : id }, { $set : entry })
     if (result.acknowledged) {
       if (!result.modifiedCount) {
-        response = new ErrorMessage("Request is acknowledged but no document is modified")
+        response = new ErrorMessage("Request is acknowledged but no document is modified.")
       } 
       response = `Document with id: ${id} is successfully modified!`
     }
@@ -107,7 +110,7 @@ const replaceQuote = async(id, entry) => {
       });
       if (result.acknowledged) {
         if (!result.modifiedCount) {
-          response = new ErrorMessage("Request is acknowledged but no document is replaced!")
+          response = new ErrorMessage("Request is acknowledged but no document is replaced.")
         } 
         response = "Document is successfully replaced!"
       }
