@@ -127,14 +127,14 @@ const deleteQuote = async(id) => {
   try {
     let result = await Quote.deleteOne({ id : id });
 
-    if (result.acknowledged) {
-      if(!result.deletedCount) {
-        response = new ErrorMessage("Request is acknowledged but no document is deleted.")
-      }
+    if (result.acknowledged && result.deletedCount) {
       response = `Document with id: ${id} is successfully deleted!`
+    } else {
+      response = new ErrorMessage("Request is acknowledged but no document is deleted.")
     }
 
   } catch(err) {
+    console.log(err)
     response = new ErrorMessage("An error occured while performing deletion.", err)
   }
 
