@@ -80,12 +80,12 @@ const modifyQuote = async(id, entry) => {
   let response;
   try {
     let result = await Quote.updateOne({ id : id }, { $set : entry })
-    if (result.acknowledged) {
-      if (!result.modifiedCount) {
-        response = new ErrorMessage("Request is acknowledged but no document is modified.")
-      } 
+    if (result.acknowledged && result.modifiedCount) {
       response = `Document with id: ${id} is successfully modified!`
+    } else {
+      response = new ErrorMessage("Request is acknowledged but no document is modified.")
     }
+
   } catch(err) {
     response = new ErrorMessage("An Error occured while performing request.", err)
   }
@@ -108,12 +108,13 @@ const replaceQuote = async(id, entry) => {
         quote: quote,
         category: category,
       });
-      if (result.acknowledged) {
-        if (!result.modifiedCount) {
-          response = new ErrorMessage("Request is acknowledged but no document is replaced.")
-        } 
+
+      if (result.acknowledged && result.modifiedCount) {
         response = "Document is successfully replaced!"
+      } else {
+        response = new ErrorMessage("Request is acknowledged but no document is replaced.")
       }
+
   } catch(err) {
     response = new ErrorMessage("An Error occured while performing request.", err)
   }
@@ -124,6 +125,7 @@ const replaceQuote = async(id, entry) => {
 // deleting a quote 
 const deleteQuote = async(id) => {
   let response;
+  
   try {
     let result = await Quote.deleteOne({ id : id });
 
@@ -134,7 +136,6 @@ const deleteQuote = async(id) => {
     }
 
   } catch(err) {
-    console.log(err)
     response = new ErrorMessage("An error occured while performing deletion.", err)
   }
 
