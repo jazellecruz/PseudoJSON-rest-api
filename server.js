@@ -6,7 +6,7 @@ const quotes = require("./routes/quotes.js");
 const posts = require("./routes/posts")
 
 //Database connection
-mongoose.connect("mongodb://localhost:27017/quotesDB");
+mongoose.connect("mongodb://localhost:27017/apiDataDB");
 
 app.use(express.json())
 
