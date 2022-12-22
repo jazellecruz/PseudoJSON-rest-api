@@ -2,7 +2,7 @@
 const Post = require("../models/post");
 
 //get all posts 
-const getPosts = async (query) => {
+const getPosts = async(query) => {
   let response;
   let limit = query.pageSize;
   let page = query.page - 1;
@@ -26,4 +26,23 @@ const getPosts = async (query) => {
   return response
 }
 
-module.exports = { getPosts }
+// get post by id
+const getPostById = async(id) => {
+  let response;
+
+  try {
+    let result = await Post.find({ id : id }, {"_id" : false, "__v" : false });
+
+    if (!result.length) {
+      response = "No post found"
+    } else {
+      response = result
+    }
+
+  } catch(error) {
+
+  }
+  return response
+}
+
+module.exports = { getPosts, getPostById }
