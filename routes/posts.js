@@ -1,28 +1,29 @@
 
 const router = require("express").Router();
+const query = require("../queries/post");
 
-router.get("/", (req, res) => {
-  res.send("Hello from '/posts' route!")
-  // get all posts 
+router.get("/", async(req, res) => {
+  let response = await query.getPosts(req.query)
+  res.send(response)
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async(req, res) => {
   // get post by id
 })
 
-router.post("/", (req, res) => {
+router.post("/", async(req, res) => {
 // add a new post 
 })
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async(req, res) => {
   // modify a post 
 })
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async(req, res) => {
   // replace a post 
 })
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async(req, res) => {
   // delete a post 
 })
 
