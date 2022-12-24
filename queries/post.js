@@ -1,5 +1,6 @@
 
 const Post = require("../models/post");
+const { options } = require("../constants/constants")
 
 //get all posts 
 const getPosts = async(query) => {
@@ -8,7 +9,7 @@ const getPosts = async(query) => {
   let page = query.page - 1;
 
   try {
-    let result = await Post.find(query, {"_id" : false, "__v" : false })
+    let result = await Post.find(query, options)
                     .limit(limit)
                     .skip(limit * page)
                     .sort({ id : 1 })
@@ -31,7 +32,7 @@ const getPostById = async(id) => {
   let response;
 
   try {
-    let result = await Post.find({ id : id }, {"_id" : false, "__v" : false });
+    let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
       response = "No post found"

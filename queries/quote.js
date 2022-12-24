@@ -2,6 +2,7 @@ const QuotesResponse = require("../classes/quote");
 const ErrorMessage = require("../classes/error");
 const Quote = require("../models/quotesModel");
 const helpers = require("../helpers/helpers")
+const { options } = require("../constants/constants")
 
 // get all quotes w/ or w/o query
 const getQuotes = async(query) => {
@@ -10,7 +11,7 @@ const getQuotes = async(query) => {
     let page = query.page - 1;
 
     try{
-      let result = await Quote.find(query, {"_id" : false, "__v" : false })
+      let result = await Quote.find(query, options)
           .limit(limit)
           .skip(limit * page)
           .sort({id : 1});
@@ -37,7 +38,7 @@ const getQuoteById = async(id) => {
   let response;
 
   try{
-    let result = await Quote.find({ id : id }, {"_id" : false, "__v" : false });
+    let result = await Quote.find({ id : id }, options);
 
     if(!result.length || !Array.isArray(result)) {
       response = new ErrorMessage(
