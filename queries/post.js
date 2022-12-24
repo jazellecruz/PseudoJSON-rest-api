@@ -19,8 +19,8 @@ const getPosts = async(query) => {
       response = result
     }
 
-  } catch(error) {
-    response = error
+  } catch(err) {
+    response = err
   }
 
   return response
@@ -39,10 +39,74 @@ const getPostById = async(id) => {
       response = result
     }
 
-  } catch(error) {
+  } catch(err) {
 
   }
   return response
 }
 
-module.exports = { getPosts, getPostById }
+// add a new post 
+const addPost = async(post) => {
+  let response
+  let { id, title, body } = post
+
+  let newPost = new Post({
+    id: id,
+    title: title,
+    body: body
+  })
+
+  await newPost.save()
+        .then(res => response = res)
+        .catch(err => response = err)
+
+  return response
+}
+
+// modify a post 
+const modifyPost = async(id, post) => {
+  let response
+
+  try {
+    let result = await Post.updateOne({ id : id }, { $set : post })
+    response = result
+  } catch(err) {
+    response = err
+  }
+
+  return response
+}
+
+// replace a post 
+// NOTE: the "id" MUST NOT and CANNOT be replaced
+const replacePost = async(id, post) => {
+  let response
+  let { title, body } = post
+
+  try {
+    let result = await Post.replaceOne({ id: id }, {
+      id: id,
+      title: title,
+      body: body
+    })
+    response = result
+  } catch(err) {
+    response = err
+  }
+
+  return response
+}
+
+const deletePost = async(id) => {
+  let response 
+
+  try {
+    let result = await Post.deleteOne({ id : id })
+    response = result
+  } catch(err) {
+    response = err
+  }
+  return response
+}
+
+module.exports = { getPosts, getPostById, addPost, modifyPost, replacePost, deletePost }
