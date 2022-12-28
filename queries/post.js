@@ -1,6 +1,7 @@
 
 const Post = require("../models/post");
 const { options } = require("../constants/constants")
+const ApiResponse = require("../classes/apiResponse")
 
 //get all posts 
 const getPosts = async(query) => {
@@ -17,7 +18,7 @@ const getPosts = async(query) => {
     if (!result.length) {
       response = "No posts found."
     } else {
-      response = result
+      response = new QuotesResponse("posts", result, query.page, limit)
     }
 
   } catch(err) {
@@ -37,7 +38,7 @@ const getPostById = async(id) => {
     if (!result.length) {
       response = "No post found"
     } else {
-      response = result
+      response = new QuotesResponse("posts", result, query.page, limit)
     }
 
   } catch(err) {
