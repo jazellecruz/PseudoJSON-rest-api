@@ -18,7 +18,7 @@ const getPosts = async(query) => {
     if (!result.length) {
       response = "No posts found."
     } else {
-      response = new QuotesResponse("posts", result, query.page, limit)
+      response = new ApiResponse(result, "posts", query.page, limit)
     }
 
   } catch(err) {
@@ -38,7 +38,7 @@ const getPostById = async(id) => {
     if (!result.length) {
       response = "No post found"
     } else {
-      response = new QuotesResponse("posts", result, query.page, limit)
+      response = new ApiResponse(result, "posts", query.page, limit)
     }
 
   } catch(err) {

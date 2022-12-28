@@ -22,7 +22,7 @@ const getQuotes = async(query) => {
           error = "Resources Not Found.",
           code = 404)
       } else {
-        response = new QuotesResponse("quotes", result, page = query.page, limit = limit);
+        response = new ApiResponse(result, "quotes", page = query.page, limit = limit);
           // directly get page num from url to avoid unnecessary incrementation in class
       }
 
@@ -47,7 +47,7 @@ const getQuoteById = async(id) => {
         code = 404
         )
     } else {
-      response = new QuotesResponse(result);
+      response = new ApiResponse(result, "quotes");
     }
 
    } catch(err) {
@@ -70,7 +70,7 @@ const postQuote = async(entry) => {
   });
 
   await newQuote.save()
-  .then(res => response = new QuotesResponse(res))
+  .then(res => response = new ApiResponse(res))
   .catch(err => response = new ErrorMessage("An Error occured while posting data.", err))
 
   return response;
