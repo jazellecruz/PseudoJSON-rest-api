@@ -1,4 +1,4 @@
-const QuotesResponse = require("../classes/quote");
+const ApiResponse = require("../classes/apiResponse");
 const ErrorMessage = require("../classes/error");
 const Quote = require("../models/quotesModel");
 const helpers = require("../helpers/helpers")
@@ -22,7 +22,7 @@ const getQuotes = async(query) => {
           error = "Resources Not Found.",
           code = 404)
       } else {
-        response = new QuotesResponse(result, page = query.page, limit = limit);
+        response = new QuotesResponse("quotes", result, page = query.page, limit = limit);
           // directly get page num from url to avoid unnecessary incrementation in class
       }
 
