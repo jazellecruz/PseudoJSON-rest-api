@@ -1,7 +1,7 @@
 const ApiResponse = require("../classes/apiResponse");
 const ErrorMessage = require("../classes/error");
 const Quote = require("../models/quotesModel");
-const helpers = require("../helpers/helpers")
+const { stringify, checkIfProcessed } = require("../helpers/helpers")
 const { options } = require("../constants/constants")
 
 // get all quotes w/ or w/o query
@@ -18,7 +18,7 @@ const getQuotes = async(query) => {
 
       if(!result.length || !Array.isArray(result)) {
         response = new ErrorMessage(
-          `Resource with conditions: ${helpers.stringify(query)} does not exist.`,
+          `Resource with conditions: ${stringify(query)} does not exist.`,
           error = "Resources Not Found.",
           code = 404)
       } else {
@@ -47,11 +47,11 @@ const getQuoteById = async(id) => {
         code = 404
         )
     } else {
-      response = new ApiResponse(result, "quotes");
+      response = result;
     }
 
    } catch(err) {
-    response = new ErrorMessage("An Error occured while fetching data.", err)
+    response = new ErrorMessage("An Error occured while fetching data.", error = err)
    }
 
    return response
@@ -71,7 +71,7 @@ const postQuote = async(entry) => {
 
   await newQuote.save()
   .then(res => response = new ApiResponse(res))
-  .catch(err => response = new ErrorMessage("An Error occured while posting data.", err))
+  .catch(err => response = new ErrorMessage("An Error occured while posting data.", error = err))
 
   return response;
 }
@@ -79,16 +79,12 @@ const postQuote = async(entry) => {
 // modify a quote
 const modifyQuote = async(id, entry) => {
   let response;
+
   try {
     let result = await Quote.updateOne({ id : id }, { $set : entry })
-    if (result.acknowledged && result.modifiedCount) {
-      response = `Document with id: ${id} is successfully modified!`
-    } else {
-      response = new ErrorMessage("Request is acknowledged but no document is modified.")
-    }
-
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", err)
+    response = new ErrorMessage("An Error occured while performing request.", error = err)
   }
  
   return response;
@@ -109,15 +105,10 @@ const replaceQuote = async(id, entry) => {
         quote: quote,
         category: category,
       });
-
-      if (result.acknowledged && result.modifiedCount) {
-        response = "Document is successfully replaced!"
-      } else {
-        response = new ErrorMessage("Request is acknowledged but no document is replaced.")
-      }
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
 
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", err)
+    response = new ErrorMessage("An Error occured while performing request.", error = err)
   }
  
   return response;
@@ -129,15 +120,9 @@ const deleteQuote = async(id) => {
   
   try {
     let result = await Quote.deleteOne({ id : id });
-
-    if (result.acknowledged && result.deletedCount) {
-      response = `Document with id: ${id} is successfully deleted!`
-    } else {
-      response = new ErrorMessage("Request is acknowledged but no document is deleted.")
-    }
-
+    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing deletion.", err)
+    response = new ErrorMessage("An error occured while performing deletion.", error = err)
   }
 
   return response;

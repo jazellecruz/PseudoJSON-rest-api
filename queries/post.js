@@ -2,6 +2,8 @@
 const Post = require("../models/post");
 const { options } = require("../constants/constants")
 const ApiResponse = require("../classes/apiResponse")
+const { stringify, checkIfProcessed } = require("../helpers/helpers");
+const ErrorMessage = require("../classes/error");
 
 //get all posts 
 const getPosts = async(query) => {
@@ -16,7 +18,10 @@ const getPosts = async(query) => {
                     .sort({ id : 1 })
 
     if (!result.length) {
-      response = "No posts found."
+      response = new ErrorMessage(
+        `Resource with conditions: ${stringify(query)} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404)
     } else {
       response = new ApiResponse(result, "posts", query.page, limit)
     }
@@ -36,13 +41,17 @@ const getPostById = async(id) => {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      response = "No post found"
+      response = new ErrorMessage(
+        `Resource with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
     } else {
-      response = new ApiResponse(result, "posts", query.page, limit)
+      response = result
     }
 
   } catch(err) {
-
+    response = new ErrorMessage("An error occured while performing request.")
   }
   return response
 }
@@ -71,9 +80,9 @@ const modifyPost = async(id, post) => {
 
   try {
     let result = await Post.updateOne({ id : id }, { $set : post })
-    response = result
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
   } catch(err) {
-    response = err
+    response = new ErrorMessage("An error occured while performing request.")
   }
 
   return response
@@ -91,9 +100,9 @@ const replacePost = async(id, post) => {
       title: title,
       body: body
     })
-    response = result
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
   } catch(err) {
-    response = err
+    response = new ErrorMessage("An error occured while performing request.")
   }
 
   return response
@@ -104,9 +113,9 @@ const deletePost = async(id) => {
 
   try {
     let result = await Post.deleteOne({ id : id })
-    response = result
+    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
   } catch(err) {
-    response = err
+    response = new ErrorMessage("An error occured while performing request.")
   }
   return response
 }
