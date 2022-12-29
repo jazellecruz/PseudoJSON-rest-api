@@ -27,7 +27,7 @@ const getQuotes = async(query) => {
       }
 
     } catch(err) {
-      response = new ErrorMessage("An Error occured while fetching data.", error = err)
+      response = new ErrorMessage("An Error occured while fetching data.", error = stringify(err.message))
     }
 
     return response;
@@ -51,7 +51,7 @@ const getQuoteById = async(id) => {
     }
 
    } catch(err) {
-    response = new ErrorMessage("An Error occured while fetching data.", error = err)
+    response = new ErrorMessage("An Error occured while fetching data.", error = stringify(err.message))
    }
 
    return response
@@ -71,7 +71,7 @@ const postQuote = async(entry) => {
 
   await newQuote.save()
   .then(res => response = new ApiResponse(res))
-  .catch(err => response = new ErrorMessage("An Error occured while posting data.", error = err))
+  .catch(err => response = new ErrorMessage("An Error occured while posting data.", error = stringify(err.message)))
 
   return response;
 }
@@ -84,7 +84,7 @@ const modifyQuote = async(id, entry) => {
     let result = await Quote.updateOne({ id : id }, { $set : entry })
     response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = err)
+    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
   }
  
   return response;
@@ -108,7 +108,7 @@ const replaceQuote = async(id, entry) => {
     response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
 
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = err)
+    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
   }
  
   return response;
@@ -122,7 +122,7 @@ const deleteQuote = async(id) => {
     let result = await Quote.deleteOne({ id : id });
     response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing deletion.", error = err)
+    response = new ErrorMessage("An error occured while performing deletion.", error = stringify(err.message))
   }
 
   return response;
