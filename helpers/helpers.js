@@ -2,7 +2,7 @@ const ErrorMessage = require("../classes/error")
 
 const stringify = (entry) => {
   let string = JSON.stringify(entry)
-  string =  string.split('"').join(' ')
+  string =  string.split('"').join(' ').split('\\').join('')
 
   return string
 }
