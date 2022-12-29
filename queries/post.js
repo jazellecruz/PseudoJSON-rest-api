@@ -51,7 +51,7 @@ const getPostById = async(id) => {
     }
 
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.")
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
   return response
 }
@@ -68,8 +68,8 @@ const addPost = async(post) => {
   })
 
   await newPost.save()
-        .then(res => response = res)
-        .catch(err => response = err)
+  .then(res => response = res)
+  .catch(err => response = err)
 
   return response
 }
@@ -102,7 +102,7 @@ const replacePost = async(id, post) => {
     })
     response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.")
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
 
   return response
@@ -115,7 +115,7 @@ const deletePost = async(id) => {
     let result = await Post.deleteOne({ id : id })
     response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.")
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
   return response
 }
