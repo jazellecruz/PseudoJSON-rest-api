@@ -13,9 +13,8 @@ const getPosts = async(query) => {
 
   try {
     let result = await Post.find(query, options)
-                    .limit(limit)
-                    .skip(limit * page)
-                    .sort({ id : 1 })
+                    .limit(limit || 20)
+                    .skip(limit * page || 0)
 
     if (!result.length) {
       response = new ErrorMessage(
@@ -23,7 +22,7 @@ const getPosts = async(query) => {
         error = "Resources Not Found.",
         code = 404)
     } else {
-      response = new ApiResponse(result, "posts", query.page, limit)
+      response = new ApiResponse(result, "posts", query.page ,limit)
     }
 
   } catch(err) {

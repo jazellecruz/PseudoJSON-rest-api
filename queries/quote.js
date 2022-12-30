@@ -12,8 +12,8 @@ const getQuotes = async(query) => {
 
     try{
       let result = await Quote.find(query, options)
-          .limit(limit)
-          .skip(limit * page)
+          .limit(limit || 20)
+          .skip(limit * page || 0)
           .sort({id : 1});
 
       if(!result.length || !Array.isArray(result)) {
