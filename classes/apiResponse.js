@@ -4,8 +4,8 @@ class ApiResponse {
     this.message = "Successfully fullfilled request!";
     this[name] = data;
     this.total_received = data.length;
-    this.page = page;
-    this.limit = limit
+    this.page = Number(page);
+    this.limit = Number(limit)
   }
 }
 
