@@ -16,14 +16,21 @@ const getQuotes = async(query) => {
           .skip(limit * page || 0)
           .sort({id : 1});
 
+      let totalCountDocs = await Quote.countDocuments(query)
+
       if(!result.length || !Array.isArray(result)) {
         response = new ErrorMessage(
           `Resource with conditions: ${stringify(query)} does not exist.`,
           error = "Resources Not Found.",
           code = 404)
       } else {
-        response = new ApiResponse(result, "quotes", page = query.page, limit = limit);
-          // directly get page num from url to avoid unnecessary incrementation in class
+        response = new ApiResponse(result, 
+                  "quotes", 
+                  totalCountDocs, 
+                  page = query.page, 
+                  // directly get page num from url to avoid unnecessary incrementation in class
+                  limit = limit);
+         
       }
 
     } catch(err) {
