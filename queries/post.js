@@ -13,7 +13,7 @@ const getPosts = async(query) => {
 
   try {
     let result = await Post.find(query, options)
-                    .limit(limit)
+                    .limit(limit || 20)
                     .skip(limit * page || 0)
                     .sort({id : 1});
 
