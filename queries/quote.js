@@ -7,13 +7,13 @@ const { options } = require("../constants/constants")
 // get all quotes w/ or w/o query
 const getQuotes = async(query) => {
     let response;
-    let limit = query.pageSize;
-    let page = query.page - 1;
+    let limit = query.pageSize || 20;
+    let page = query.page - 1 || 0;
 
     try{
       let result = await Quote.find(query, options)
-          .limit(limit || 20)
-          .skip(limit * page || 0)
+          .limit(limit)
+          .skip(limit * page)
           .sort({id : 1});
 
       let totalCountDocs = await Quote.countDocuments(query)

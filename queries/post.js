@@ -8,13 +8,13 @@ const ErrorMessage = require("../classes/error");
 //get all posts 
 const getPosts = async(query) => {
   let response;
-  let limit = query.pageSize;
-  let page = query.page - 1;
+  let limit = query.pageSize || 20;
+  let page = query.page - 1 || 0;
 
   try {
     let result = await Post.find(query, options)
-                    .limit(limit || 20)
-                    .skip(limit * page || 0)
+                    .limit(limit)
+                    .skip(limit * page)
                     .sort({id : 1});
 
     let totalCountDocs = await Post.countDocuments(query)
@@ -28,8 +28,8 @@ const getPosts = async(query) => {
       response = new ApiResponse(result, 
                   "posts", 
                   totalCountDocs, 
-                  query.page, 
-                  limit)
+                  page = query.page, 
+                  limit = limit)
     }
 
   } catch(err) {
