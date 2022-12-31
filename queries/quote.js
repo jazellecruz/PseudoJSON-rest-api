@@ -1,6 +1,6 @@
 const ApiResponse = require("../classes/apiResponse");
 const ErrorMessage = require("../classes/error");
-const Quote = require("../models/quotesModel");
+const Quote = require("../models/quote");
 const { stringify, checkIfProcessed } = require("../helpers/helpers")
 const { options } = require("../constants/constants")
 
