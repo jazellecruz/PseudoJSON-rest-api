@@ -1,8 +1,6 @@
 
-const express = require("express");
-const router = express.Router();
+const router= require("express").Router();
 const query = require("../queries/quote")
-
 
 router.get("/", async(req, res) => {
   let response = await query.getQuotes(req.query);
