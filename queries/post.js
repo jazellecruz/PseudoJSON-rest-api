@@ -13,15 +13,15 @@ const getPosts = async(query) => {
 
   try {
     let result = await Post.find(query, options)
-                    .limit(limit)
-                    .skip(limit * page)
-                    .sort({id : 1});
+        .limit(limit)
+        .skip(limit * page)
+        .sort({id : 1});
 
     let totalCountDocs = await Post.countDocuments(query)
 
     if (!result.length) {
       response = new ErrorMessage(
-        `Resource with conditions: ${stringify(query)} does not exist.`,
+        `Posts with conditions: ${stringify(query)} does not exist.`,
         error = "Resources Not Found.",
         code = 404)
     } else {
@@ -33,7 +33,7 @@ const getPosts = async(query) => {
     }
 
   } catch(err) {
-    response = err
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
 
   return response
@@ -48,7 +48,7 @@ const getPostById = async(id) => {
 
     if (!result.length) {
       response = new ErrorMessage(
-        `Resource with id: ${id} does not exist.`,
+        `Post with id: ${id} does not exist.`,
         error = "Resources Not Found.",
         code = 404
         )
@@ -75,7 +75,7 @@ const addPost = async(post) => {
 
   await newPost.save()
   .then(res => response = res)
-  .catch(err => response = err)
+  .catch(err => response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message)))
 
   return response
 }
@@ -95,14 +95,16 @@ const modifyPost = async(id, post) => {
 }
 
 // replace a post 
-// NOTE: the "id" MUST NOT and CANNOT be replaced
+// NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
+// I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID
 const replacePost = async(id, post) => {
   let response
-  let { title, body } = post
+  let postId = id
+  let { newId, title, body } = post
 
   try {
-    let result = await Post.replaceOne({ id: id }, {
-      id: id,
+    let result = await Post.replaceOne({ id: postId }, {
+      id: newId,
       title: title,
       body: body
     })

@@ -20,7 +20,7 @@ const getQuotes = async(query) => {
 
       if(!result.length || !Array.isArray(result)) {
         response = new ErrorMessage(
-          `Resource with conditions: ${stringify(query)} does not exist.`,
+          `Quotes with conditions: ${stringify(query)} does not exist.`,
           error = "Resources Not Found.",
           code = 404)
       } else {
@@ -49,7 +49,7 @@ const getQuoteById = async(id) => {
 
     if(!result.length || !Array.isArray(result)) {
       response = new ErrorMessage(
-        `Resource with id: ${id} does not exist.`,
+        `Quote with id: ${id} does not exist.`,
         error = "Resources Not Found.",
         code = 404
         )
@@ -98,16 +98,17 @@ const modifyQuote = async(id, entry) => {
 }
 
 // replace a whole document
-// Note: "id" MUST NOT and CANNOT be replaced
+// NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
+// I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID
 const replaceQuote = async(id, entry) => {
   let response;
   let quoteId = id;
-  let { author, quote, category } = entry;
+  let { newId, author, quote, category } = entry;
 
   try {
     let result = await Quote.replaceOne({ id : quoteId },
       {
-        id : id,
+        id : newId,
         author: author,
         quote: quote,
         category: category,
