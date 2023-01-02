@@ -68,28 +68,30 @@ const addUser = async(entry) => {
   let { 
     id,
     firstName,
-    middleName,
     lastName,
+    middleName,
     gender,
     birthDate,
     email,
-    phone
+    phone,
+    imgUrl
   } = entry
 
   let newUser = new User({
     id: id,
     firstName: firstName,
-    middleName: middleName,
     lastName: lastName,
+    middleName: middleName,
     gender: gender,
     birthDate: birthDate,
     email: email,
-    phone: phone
+    phone: phone,
+    imgUrl: imgUrl
   })
 
   await newUser.save()
   .then(res => response = res)
-  .catch(err = new ErrorMessage("An error occured while performing request.", error = stringify(err.message)))
+  .catch(err => new ErrorMessage("An error occured while performing request.", error = stringify(err.message)))
 
   return response
 }
