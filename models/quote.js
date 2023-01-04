@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const quotesSchema = new mongoose.Schema({
   id: {
     type: Number,
-    required: true
+    required: true,
+    unique: true
   },
   author: {
     type: String,
