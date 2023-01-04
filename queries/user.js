@@ -14,7 +14,7 @@ const getUsers = async(query) => {
     let result = await User.find(query, options)
         .limit(limit)
         .skip(limit * page)
-        .sort({ userId : 1 })
+        .sort({ id : 1 })
     
     let totalCountDocs = await User.countDocuments(query)
 
