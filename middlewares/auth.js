@@ -6,7 +6,7 @@ const authenticateUser = (req, res, next) => {
     res.send({
       status_code: 401,
       error: "UNAUTHORIZED",
-      err_message: "You are not authorized to make such requests!"
+      err_message: "You are not authorized to make changes to the database!"
     })
   }
 }
