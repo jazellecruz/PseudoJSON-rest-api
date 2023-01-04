@@ -8,7 +8,7 @@ const posts = require("./routes/posts")
 const users = require("./routes/users")
 
 //Database connection
-mongoose.connect("mongodb://localhost:27017/apiDataDB");
+mongoose.connect(process.env.MONGODB_URI);
 
 app.use(express.json())
 
