@@ -1,0 +1,156 @@
+@import url("//www.cdnfonts.com/poppins.font");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins";
+  text-align: center;
+  width: 56rem;
+  margin: 0 auto
+}
+
+/* NAVBAR SECTION */
+.navbar{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  padding: 0 40px;
+}
+
+.navbar-btn{
+  display: none;
+  border: none;
+  background-color: transparent;
+}
+
+.navbar-btn img{
+  width: 32px;
+}
+
+.navbar-btn .menu-icon{
+  display: block;
+}
+
+.navbar-btn .close-icon{
+  display: none;
+}
+
+.navbar-btn.active .menu-icon{
+  display: none;
+}
+
+.navbar-btn.active .close-icon{
+  display: block;
+}
+
+ul {
+  display: flex;
+  gap: 24px;
+}
+ul li{
+  list-style: none;
+  padding-left: 16px;
+}
+
+/* HERO SECTION */
+.hero-section{
+  padding: calc(8vh + 8px) 0;
+} 
+
+.hero-title{
+ font-size: calc(2.5vw + 32px);
+ margin-bottom: 1rem;
+}
+
+.hero-subtitle{
+  font-size: calc(.8vw + 14px);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  padding: 8px 12px;
+  font-size: 20px;
+  border-radius: 8px;
+  border-width: 1.5px;
+  margin: 16px 8px;
+}
+
+/*  ABOUT SECTION */
+
+.about-section{
+  padding: calc(4.5vh + 12px) 0 calc(6vh + 12px);
+}
+
+
+/*  UNIVERSAL SECTION */
+
+.header-title{
+  font-size: calc(1vw + 24px);
+  margin: 12px 0;
+}
+
+.desc {
+  font-size: calc(.2vw + 16px);
+  line-height: 1.8;
+  padding: 0 5vw;
+}
+
+.note{
+  padding: 2rem 6vw;
+  font-size: calc(.3vw + 12px);
+  font-style: italic;
+}
+
+.section {
+  margin: 4rem 0;
+}
+
+a {
+  text-decoration: none;
+}
+/*  ROUTES/RESOURCES LIST */
+
+table {
+  margin: 30px auto 24px;
+  width: 80%;
+}
+
+td{
+  width: 50%;
+  padding: 6px 0;
+}
+
+@media screen and (max-width: 951px) {
+  body{
+    width: 100%
+  }
+
+  ul {
+    flex-direction: column;
+  }
+
+  .navlinks-container {
+    width: 100%;
+    position: fixed;
+    top: 5rem;
+    background: rgba( 255, 255, 255, 0.15 );
+    backdrop-filter: blur( 10.5px );
+    -webkit-backdrop-filter: blur( 10.5px );
+    padding: 28px 0 36px;
+    display: none
+  }
+
+  .navlinks-container.active {
+    display: unset
+  }
+
+  .navbar-btn {
+    display: unset;
+  }
+}
