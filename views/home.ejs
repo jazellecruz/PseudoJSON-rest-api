@@ -1,26 +1,26 @@
 <%- include("./partials/header") %>
 
-<body>
+
   <div class="hero-section">
     <p class="hero-title">{ PseudoJSON }</p>
-    <p class="hero-subtitle">A simple and unproblematic REST API that sends dummy data for testing and prototyping your Frontend applications</p>
+    <p class="hero-subtitle">Simple. Minimalistic. Unproblematic.</p>
     <button class="action-btn">Get Started</button>
     <button class="action-btn">View GitHub</button>
   </div>
   
   <div class="about-section">
-    <h1>About PseudoJSON</h1>
-    <p>PseudoJSON is developed as a small project. 
-      It was created as a helper for when you need dummy data. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum tempore aliquam quos veniam incidunt earum officiis similique fuga facere, harum natus provident accusantium repudiandae veritatis laudantium expedita facilis maiores aut.</p>
+    <p class="header-title">What is PseudoJSON?</p>
+    <p class="desc">PseudoJSON is a REST API developed as a small project. 
+      It was created as a helper for when you need dummy data for testing and prototyping your Frontend applications.</p>
   </div>
 
   <div>
 
   </div>
 
-  <div class="resources-section">
-    <h1>Resources</h1>
-    <p>Here are the resources that can be accessed through our API:</p>
+  <div class="resources-section section">
+    <p class="header-title">Resources</p>
+    <p class="desc">Here are the resources that can be accessed through our API:</p>
     <table class="resources-list">
       <tr>
         <td><a href="/quotes">/quotes</a></td>
@@ -35,12 +35,12 @@
         <td>20 users</td>
       </tr>
     </table>
-    <p>Note: Results are paginated by 20. Pass pageSize=100 as a parameter to get all results. Also, new resources may be added in the future.</p>
+    <p class="note">Note: Results are paginated by 20. Pass pageSize=100 as a parameter to get all results. Also, new resources may be added in the future.</p>
   </div>
 
-  <div class="routes-section">
-    <h1>Routes</h1>
-    <p>HTTPS and HTTP are both supported.</p>
+  <div class="routes-section section">
+    <p class="header-title">Routes</p>
+    <p class="desc">HTTPS and HTTP are both supported.</p>
     <table class="routes-list">
       <tr>
         <td><a href="/quotes">/quotes</a></td>
@@ -67,8 +67,10 @@
         <td>Get user by id</td>
       </tr>
     </table>
-    <p>You can take a look at the <a href="/docs">documentation</a> for usage examples.</p>
+    <p class="note">Note: You can take a look at the <a href="/docs">documentation</a> for usage examples.</p>
   </div>
-</body>
+
 
 <%- include("./partials/footer") %>
+
+<!-- that sends dummy data for testing and prototyping your Frontend applications-->
