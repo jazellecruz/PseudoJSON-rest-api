@@ -7,6 +7,7 @@ const quotes = require("./routes/quotes.js");
 const posts = require("./routes/posts");
 const users = require("./routes/users");
 const pages = require("./routes/pages");
+
 //Database connection
 mongoose.connect(process.env.MONGODB_URI);
 
