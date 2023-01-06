@@ -24,6 +24,6 @@ app.get("*", (req, res) => {
   res.status(404).send("Page Not Found");
 })
 
-app.listen("8000", (req, res) => {
+app.listen(8000, process.env.IP_ADDRESS || "localhost", (req, res) => {
   console.log("Magic is currently happening on port 8000.")
 });
