@@ -2,16 +2,26 @@
 
 
   <div class="hero-section">
-    <p class="hero-title">{ PseudoJSON }</p>
+    <p class="hero-title">
+      <span class="curly-bracket">{ </span> 
+      <span class="brand-text">PseudoJSON</span> 
+      <span class="curly-bracket"> }</span>
+    </p>
     <p class="hero-subtitle">Simple. Minimalistic. Unproblematic.</p>
-    <button class="action-btn">Get Started</button>
-    <button class="action-btn">View GitHub</button>
+    <a href="/docs"
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="action-btn doc-btn">Get Started</a>
+    <a href="//github.com/jazellecruz/PseudoJSON-rest-api" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       class="action-btn github-btn">View GitHub</a>
   </div>
   
   <div class="about-section">
-    <p class="header-title">What is PseudoJSON?</p>
+    <p class="header-title"><span class="underline-text">What is PseudoJSON?</span></p>
     <p class="desc">PseudoJSON is a REST API developed as a small project. 
-      It was created as a helper for when you need dummy data for testing and prototyping your Frontend applications.</p>
+      It was created as a helper for when you need dummy data for a quick testing and prototyping of your Frontend applications.</p>
   </div>
 
   <div>
@@ -19,19 +29,19 @@
   </div>
 
   <div class="resources-section section">
-    <p class="header-title">Resources</p>
+    <p class="header-title"><span class="underline-text">Resources</span></p>
     <p class="desc">Here are the resources that can be accessed through our API:</p>
     <table class="resources-list">
       <tr>
-        <td><a href="/quotes">/quotes</a></td>
+        <td><a href="/quotes" class="route-link">/quotes</a></td>
         <td>100 quotes</td>
       </tr>
       <tr>
-        <td><a href="/posts">/posts</a></td>
+        <td><a href="/posts" class="route-link">/posts</a></td>
         <td>100 posts</td>
       </tr>
       <tr>
-        <td><a href="/users">/users</a></td>
+        <td><a href="/users" class="route-link">/users</a></td>
         <td>20 users</td>
       </tr>
     </table>
@@ -39,35 +49,35 @@
   </div>
 
   <div class="routes-section section">
-    <p class="header-title">Routes</p>
+    <p class="header-title"><span class="underline-text">Routes</span></p>
     <p class="desc">HTTPS and HTTP are both supported.</p>
     <table class="routes-list">
       <tr>
-        <td><a href="/quotes">/quotes</a></td>
+        <td><a href="/quotes" class="route-link">/quotes</a></td>
         <td>Get all quotes</td>
       </tr>
       <tr>
-        <td><a href="/quotes/1">/quotes/1</a></td>
+        <td><a href="/quotes/1" class="route-link">/quotes/1</a></td>
         <td>Get all quote by ID</td>
       </tr>
       <tr>
-        <td><a href="/posts">/posts</a></td>
+        <td><a href="/posts" class="route-link">/posts</a></td>
         <td>Get all posts</td>
       </tr>
       <tr>
-        <td><a href="/posts/1">/posts/1</a></td>
+        <td><a href="/posts/1" class="route-link">/posts/1</a></td>
         <td>Get post by ID</td>
       </tr>
       <tr>
-        <td><a href="/users">/users</a></td>
+        <td><a href="/users" class="route-link">/users</a></td>
         <td>Get all 20 users</td>
       </tr>
       <tr>
-        <td><a href="/users/1">/users/1</a></td>
+        <td><a href="/users/1" class="route-link">/users/1</a></td>
         <td>Get user by id</td>
       </tr>
     </table>
-    <p class="note">Note: You can take a look at the <a href="/docs">documentation</a> for usage examples.</p>
+    <p class="note">Note: You can take a look at the <a href="/docs" class="route-link">documentation</a> for usage examples.</p>
   </div>
 
 
