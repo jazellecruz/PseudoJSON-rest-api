@@ -14,10 +14,6 @@ body {
 }
 
 /* NAVBAR SECTION */
-.logo {
-  font-weight: bolder;
-}
-
 .logo a {
   color: inherit;
   transition-duration: 0.3s;
@@ -107,11 +103,11 @@ li a:hover{
 }
 
 .curly-bracket {
-  color: #1b6061
+  color: #1b6061;
 }
 
 .brand-text{
-  color: #078385
+  color: #078385;
 }
 
 .doc-btn{
