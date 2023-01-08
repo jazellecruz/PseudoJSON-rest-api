@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const cors = require("cors")
+const hljs = require('highlight.js');
 const quotes = require("./routes/quotes.js");
 const posts = require("./routes/posts");
 const users = require("./routes/users");
@@ -15,6 +17,10 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(cors({
+  origin: "*",
+  methods: ["GET"]
+}));
 
 app.use("/", pages);
 app.use("/quotes", quotes);
