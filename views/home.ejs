@@ -11,11 +11,11 @@
     <a href="/docs"
        target="_blank" 
        rel="noopener noreferrer"
-       class="action-btn doc-btn">Get Started</a>
+       class="action-btn primary-btn">Get Started</a>
     <a href="//github.com/jazellecruz/PseudoJSON-rest-api" 
        target="_blank" 
        rel="noopener noreferrer"
-       class="action-btn github-btn">View GitHub</a>
+       class="action-btn secondary-btn">View GitHub</a>
   </div>
   
   <div class="about-section">
@@ -24,8 +24,38 @@
       It was created as a helper for when you need dummy data for a quick testing and prototyping of your Frontend applications.</p>
   </div>
 
-  <div>
+  <div class="try-it-section section">
+    <p class="header-title"><span class="underline-text">Try it Out!</span></p>
+    <p class="sub-text">Example Code</p>
+    <blockquote>
+      <pre class="language-js">
+        <code id="example-code">
+fetch('http://localhost:8000/quote/1')
+.then(res => res.json())
+.then(json => console.log(json));
+        </code>
+      </pre>
+    </blockquote>
 
+    <div class="btn-container">
+      <button id="fetch-btn" class="action-btn primary-btn fetch-btn" 
+        onclick="handleFetchReq()">
+        Run Code 🏃
+      </button>
+      <button id="copy-btn" class="action-btn secondary-btn copy-btn"
+        onclick="handleCopyReq()">
+      Copy Code ✏️
+    </button>
+    </div>
+    
+    <p class="sub-text">Output</p>
+    <blockquote>
+      <pre class="language-js">
+        <code id="code-output">
+//fetch data to get the output
+        </code>
+      </pre>
+    </blockquote>
   </div>
 
   <div class="resources-section section">
