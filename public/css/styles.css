@@ -24,11 +24,16 @@ body {
 }
 
 .navbar{
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 5rem;
+  width: inherit;
+  background-color: inherit;
+}
+
+.logo {
   padding: 0 32px;
 }
 
@@ -36,6 +41,7 @@ body {
   display: none;
   border: none;
   background-color: transparent;
+  padding: 0 32px;
 }
 
 .navbar-btn img{
@@ -80,7 +86,7 @@ li a:hover{
 
 /* HERO SECTION */
 .hero-section{
-  padding: calc(8vh + 8px) 0;
+  padding: 9rem 0 5rem;
 } 
 
 .hero-title{
@@ -97,7 +103,7 @@ li a:hover{
 .action-btn {
   font-size: 20px;
   border-radius: 25px;
-  margin: 0 8px;
+  border: solid;
   transition-duration: 0.3s;
   font-size: calc(.4vw + 14px);
 }
@@ -110,18 +116,20 @@ li a:hover{
   color: #078385;
 }
 
-.doc-btn{
+.primary-btn{
   padding: 10px 12px;
   border: 0 solid;
   color: rgb(228, 233, 236);
   background-color: #1e6c6d;
+  margin-right: 8px;
 }
 
-.github-btn{
+.secondary-btn{
   background-color: transparent;
   color: #078385;
   padding: 8px 12px;
-  border: 2.5px solid
+  border: 2.5px solid;
+  margin-left: 8px;
 }
 
 
@@ -131,6 +139,40 @@ li a:hover{
   padding: calc(4.5vh + 12px) 0 calc(6vh + 12px);
 }
 
+/*  TRY-IT SECTION */
+.try-it-section{
+  padding: 0 32px;
+}
+
+.try-it-section .header-title{
+  padding-bottom: 24px;
+} 
+
+.try-it-section .btn-container{
+  text-align: left;
+  padding-bottom: 24px;
+}
+
+.btn-container button {
+  font-size: 16px;
+}
+
+.sub-text {
+  text-align: left;
+}
+
+blockquote{
+  text-align: left;
+  width: 100%;
+  border-radius: 10px;
+  color: #f5f9fd;
+}
+
+code{
+  border-radius: 16px;
+  font-size: 1rem;
+  overflow-x: auto;
+}
 
 /*  SELECTORS FOR MULTIPLE ELEMENTS  */
 
