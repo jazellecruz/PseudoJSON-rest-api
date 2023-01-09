@@ -7,6 +7,10 @@ const fetchBtn = document.getElementById("fetch-btn");
 const copyBtn = document.getElementById("copy-btn");
 const codeOutput = document.getElementById("code-output")
 const exampleCode = document.getElementById("example-code").innerText;
+const copyright = document.getElementById('copyright');
+const currentYear = new Date().getFullYear();
+
+copyright.textContent +=  `${currentYear} PseudoJSON`;
 
 navBtn.addEventListener("click", () => {
     navBtn.classList.toggle("active");
