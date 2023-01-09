@@ -1,87 +1,6 @@
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
+.home-main-container {
   text-align: center;
-  width: 56rem;
-  margin: 0 auto;
-  background-color: #f5f9fd;
-  color: #201e1e;
-}
-
-/* NAVBAR SECTION */
-.logo a {
-  color: inherit;
-  transition-duration: 0.3s;
-}
-
-.logo a:hover{
-  color: #007d81;
-}
-
-.navbar{
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 5rem;
-  width: inherit;
-  background-color: inherit;
-}
-
-.logo {
-  padding: 0 32px;
-}
-
-.navbar-btn{
-  display: none;
-  border: none;
-  background-color: transparent;
-  padding: 0 32px;
-}
-
-.navbar-btn img{
-  width: 32px;
-}
-
-.navbar-btn .menu-icon{
-  display: block;
-}
-
-.navbar-btn .close-icon{
-  display: none;
-}
-
-.navbar-btn.active .menu-icon{
-  display: none;
-}
-
-.navbar-btn.active .close-icon{
-  display: block;
-}
-
-ul {
-  display: flex;
-  gap: 24px;
-}
-
-ul li{
-  list-style: none;
-  padding-left: 16px;
-}
-
-li a{
-  color: #201e1e;
-  font-weight: 500;
-  transition-duration: 0.3s;
-}
-
-li a:hover{
-  color: #007d81;
 }
 
 /* HERO SECTION */
@@ -132,7 +51,6 @@ li a:hover{
   margin-left: 8px;
 }
 
-
 /*  ABOUT SECTION */
 
 .about-section{
@@ -159,19 +77,6 @@ li a:hover{
 
 .sub-text {
   text-align: left;
-}
-
-blockquote{
-  text-align: left;
-  width: 100%;
-  border-radius: 10px;
-  color: #f5f9fd;
-}
-
-code{
-  border-radius: 16px;
-  font-size: 1rem;
-  overflow-x: auto;
 }
 
 /*  SELECTORS FOR MULTIPLE ELEMENTS  */
@@ -222,35 +127,12 @@ td{
 }
 
 @media screen and (max-width: 951px) {
-  body{
+
+  .home-main-container{
     width: 100%;
   }
   .desc {
     padding: 0 32px;
   }
 
-  ul {
-    flex-direction: column;
-  }
-
-  .navlinks-container {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba( 255, 255, 255, 0.15 );
-    backdrop-filter: blur( 10.5px );
-    -webkit-backdrop-filter: blur( 10.5px );
-    padding: 80px 0 36px;
-    display: none
-  }
-
-  .navlinks-container.active {
-    display: unset;
-  }
-
-  .navbar-btn {
-    display: unset;
-    z-index: 100;
-  }
 }
