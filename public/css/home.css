@@ -1,0 +1,136 @@
+
+
+.main-container .home{
+  text-align: center;
+}
+
+/* HERO SECTION */
+.hero-section{
+  padding: 9rem 0 5rem;
+} 
+
+.hero-title{
+ font-size: calc(3vw + 32px);
+ margin-bottom: 1rem;
+}
+
+.hero-subtitle{
+  font-size: calc(.8vw + 14px);
+  line-height: 1.8;
+  margin-bottom: 44px;
+}
+
+.action-btn {
+  font-size: 20px;
+  border-radius: 25px;
+  border: solid;
+  transition-duration: 0.3s;
+  font-size: calc(.4vw + 14px);
+}
+
+.curly-bracket {
+  color: #1b6061;
+}
+
+.brand-text{
+  color: #078385;
+}
+
+.primary-btn{
+  padding: 10px 12px;
+  border: 0 solid;
+  color: rgb(228, 233, 236);
+  background-color: #1e6c6d;
+  margin-right: 8px;
+}
+
+.secondary-btn{
+  background-color: transparent;
+  color: #078385;
+  padding: 8px 12px;
+  border: 2.5px solid;
+  margin-left: 8px;
+}
+
+/*  ABOUT SECTION */
+
+.about-section{
+  padding: calc(4.5vh + 12px) 0 calc(6vh + 12px);
+}
+
+/*  TRY-IT SECTION */
+.try-it-section{
+  padding: 0 32px;
+}
+
+.try-it-section .header-title{
+  padding-bottom: 24px;
+} 
+
+.try-it-section .btn-container{
+  text-align: left;
+  padding-bottom: 24px;
+}
+
+.btn-container button {
+  font-size: 16px;
+}
+
+.sub-text {
+  text-align: left;
+}
+
+/*  SELECTORS FOR MULTIPLE ELEMENTS  */
+
+.header-title{
+  font-size: calc(1vw + 24px);
+  margin: 12px 0;
+}
+
+.underline-text{
+  border-bottom: 3px solid #007d81;
+}
+
+.desc {
+  font-size: calc(.2vw + 16px);
+  line-height: 1.8;
+  padding: 0 5vw;
+}
+
+.note{
+  padding: 2rem 6vw;
+  font-size: calc(.3vw + 12px);
+  font-style: italic;
+}
+
+.section {
+  margin: 4rem 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.route-link {
+  color: #078385;
+}
+
+/*  ROUTES/RESOURCES LIST */
+
+table {
+  margin: 30px auto 24px;
+  width: 80%;
+}
+
+td{
+  width: 50%;
+  padding: 6px 0;
+}
+
+@media screen and (max-width: 951px) {
+
+  .desc {
+    padding: 0 32px;
+  }
+
+}

@@ -1,0 +1,167 @@
+/* ELEMENTS AND SELECTORS USED THROUGHOUT THE APP */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f9fd;
+  color: #201e1e;
+}
+
+.main-container {
+  background-color: inherit;
+  width: 56rem;
+  margin: 0 auto;
+}
+/* NAVBAR */
+.logo a {
+  color: inherit;
+  transition-duration: 0.3s;
+}
+
+.logo a:hover{
+  color: #007d81;
+}
+
+.navbar{
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  width: inherit;
+  background-color: inherit;
+}
+
+.logo {
+  padding: 0 32px;
+}
+
+.navbar-btn{
+  display: none;
+  border: none;
+  background-color: transparent;
+  padding: 0 32px;
+}
+
+.navbar-btn img{
+  width: 32px;
+}
+
+.navbar-btn .menu-icon{
+  display: block;
+}
+
+.navbar-btn .close-icon{
+  display: none;
+}
+
+.navbar-btn.active .menu-icon{
+  display: none;
+}
+
+.navbar-btn.active .close-icon{
+  display: block;
+}
+
+ul {
+  display: flex;
+  gap: 24px;
+}
+
+ul li{
+  list-style: none;
+  padding-left: 16px;
+}
+
+li a{
+  color: #201e1e;
+  font-weight: 500;
+  transition-duration: 0.3s;
+}
+
+li a:hover{
+  color: #007d81;
+}
+
+
+/* CODE BLOCKS */
+
+blockquote{
+  text-align: left;
+  width: 100%;
+  color: #f5f9fd;
+}
+
+code{
+  border-radius: 16px;
+  font-size: 1rem;
+  overflow-x: auto;
+}
+
+/* FOOTER  */
+
+footer {
+  background-color:#dddfe2;
+  padding: calc(4vh) calc(2vw);
+  margin-top: 16vh;
+}
+
+footer h3 {
+  font-size: calc(1.5vw + 12px);
+}
+
+.footer-wrapper{
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.footer-wrapper p{
+  font-size: calc(.35vw + 8.5px);
+  color: #62666b;
+}
+
+.footer-wrapper p a{
+  color: inherit;
+  font-weight: bolder;
+  margin-right: 8px;
+}
+
+/* RESPONSIVE STYLES  */
+@media screen and (max-width: 951px) {
+  
+  .main-container{
+    width: 100%;
+  }
+  
+  .navlinks-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba( 255, 255, 255, 0.15 );
+    backdrop-filter: blur( 10.5px );
+    -webkit-backdrop-filter: blur( 10.5px );
+    padding: 80px 0 36px;
+    display: none
+  }
+
+  .navlinks-container.active {
+    display: unset;
+  }
+
+  .navbar-btn {
+    display: unset;
+    z-index: 100;
+  }
+
+  ul {
+    flex-direction: column;
+  }
+}
