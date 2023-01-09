@@ -1,5 +1,5 @@
 {
-  "name": "rest-api-node",
+  "name": "pseudo-json-rest-api",
   "version": "1.0.0",
   "description": "REST API with Node.js",
   "main": "server.js",
@@ -12,7 +12,8 @@
     "api",
     "nodejs",
     "expressjs",
-    "mongodb"
+    "mongodb",
+    "json"
   ],
   "author": "Jazelle Cruz",
   "license": "ISC",
