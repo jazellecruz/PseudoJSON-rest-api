@@ -37,5 +37,5 @@ const handleCopyReq = () => {
 
 const handleFetchReq = async() => {
   fetchBtn.innerText = "Fetching..."
-  setTimeout(fetchData, 1000);
+  setTimeout(fetchData, 500);
 }
