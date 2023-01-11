@@ -1,6 +1,6 @@
 
 
-.main-container .home{
+main .home{
   text-align: center;
 }
 
@@ -80,6 +80,15 @@
   text-align: left;
 }
 
+.code-home{
+  font-size: 1rem;
+}
+
+.home code{
+  font-size: 1rem;
+}
+
+
 /*  SELECTORS FOR MULTIPLE ELEMENTS  */
 
 .header-title{
@@ -95,12 +104,6 @@
   font-size: calc(.2vw + 16px);
   line-height: 1.8;
   padding: 0 5vw;
-}
-
-.note{
-  padding: 2rem 6vw;
-  font-size: calc(.3vw + 12px);
-  font-style: italic;
 }
 
 .section {
