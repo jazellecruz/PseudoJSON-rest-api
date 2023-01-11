@@ -1,114 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include("./partials/header") %>
 
-<div class="home">
-  <div class="hero-section">
-    <p class="hero-title">
-      <span class="curly-bracket">{ </span> 
-      <span class="brand-text">PseudoJSON</span> 
-      <span class="curly-bracket"> }</span>
-    </p>
-    <p class="hero-subtitle">Simple. Minimalistic. Unproblematic.</p>
-    <a href="/docs"
-       target="_blank" 
-       rel="noopener noreferrer"
-       class="action-btn primary-btn">Get Started</a>
-    <a href="//github.com/jazellecruz/PseudoJSON-rest-api" 
-       target="_blank" 
-       rel="noopener noreferrer"
-       class="action-btn secondary-btn">View GitHub</a>
-  </div>
-  
-  <div class="about-section">
-    <p class="header-title"><span class="underline-text">What is PseudoJSON?</span></p>
-    <p class="desc">PseudoJSON is a REST API developed as a small project. 
-      It was created as a helper for when you need dummy data for a quick testing and prototyping of your Frontend applications.</p>
-  </div>
+<body>
+  <main>
+    <%- include("./partials/navbar") %>
+    <div class="home">
+      <div class="hero-section">
+        <p class="hero-title">
+          <span class="curly-bracket">{ </span>
+          <span class="brand-text">PseudoJSON</span>
+          <span class="curly-bracket"> }</span>
+        </p>
+        <p class="hero-subtitle">Simple. Minimalistic. Unproblematic.</p>
+        <a href="/docs" target="_blank" rel="noopener noreferrer" class="action-btn primary-btn">Get Started</a>
+        <a href="//github.com/jazellecruz/PseudoJSON-rest-api" target="_blank" rel="noopener noreferrer"
+          class="action-btn secondary-btn">View GitHub</a>
+      </div>
 
-  <div class="try-it-section section">
-    <p class="header-title"><span class="underline-text">Try it Out!</span></p>
-    <p class="sub-text">Example Code</p>
-    <blockquote>
-      <pre class="language-js">
-        <code id="example-code">
-fetch('http://localhost:8000/quote/1')
-.then(res => res.json())
-.then(json => console.log(json));
-        </code>
-      </pre>
-    </blockquote>
+      <div class="about-section">
+        <p class="header-title"><span class="underline-text">What is PseudoJSON?</span></p>
+        <p class="desc">PseudoJSON is a REST API developed as a small project.
+          It was created as a helper for when you need dummy data for a quick testing and prototyping of your Frontend
+          applications.</p>
+      </div>
 
-    <div class="btn-container">
-      <button id="fetch-btn" class="action-btn primary-btn fetch-btn" 
-        onclick="handleFetchReq()">
-        Run Code 🏃
-      </button>
-      <button id="copy-btn" class="action-btn secondary-btn copy-btn"
-        onclick="handleCopyReq()">
-      Copy Code ✏️
-    </button>
+      <div class="try-it-section section">
+        <p class="header-title"><span class="underline-text">Try it Out!</span></p>
+        <p class="sub-text">Example Code</p>
+        <blockquote>
+          <pre class="language-js">
+              <code class="code-home" id="example-code">
+  fetch('http://localhost:8000/quote/1')
+  .then(res => res.json())
+  .then(json => console.log(json));
+              </code>
+            </pre>
+        </blockquote>
+
+        <div class="btn-container">
+          <button id="fetch-btn" class="action-btn primary-btn fetch-btn" onclick="handleFetchReq()">
+            Run Code 🏃
+          </button>
+          <button id="copy-btn" class="action-btn secondary-btn copy-btn" onclick="handleCopyReq()">
+            Copy Code ✏️
+          </button>
+        </div>
+
+        <p class="sub-text">Output</p>
+        <blockquote>
+          <pre class="language-js">
+              <code id="code-output">
+  //fetch data to get the output
+              </code>
+            </pre>
+        </blockquote>
+      </div>
+
+      <div class="resources-section section">
+        <p class="header-title"><span class="underline-text">Resources</span></p>
+        <p class="desc">Here are the resources that can be accessed through our API:</p>
+        <table class="resources-list">
+          <tr>
+            <td><a href="/quotes" class="route-link">/quotes</a></td>
+            <td>100 quotes</td>
+          </tr>
+          <tr>
+            <td><a href="/posts" class="route-link">/posts</a></td>
+            <td>100 posts</td>
+          </tr>
+          <tr>
+            <td><a href="/users" class="route-link">/users</a></td>
+            <td>20 users</td>
+          </tr>
+        </table>
+        <p class="note-desc">Note: Results are paginated by 20. Pass pageSize=100 as a query to get all results. Also, new
+          resources may be added in the future.</p>
+      </div>
+
+      <div class="routes-section section">
+        <p class="header-title"><span class="underline-text">Routes</span></p>
+        <p class="desc">HTTPS and HTTP are both supported.</p>
+        <table class="routes-list">
+          <tr>
+            <td><a href="/quotes" class="route-link">/quotes</a></td>
+            <td>Get all quotes</td>
+          </tr>
+          <tr>
+            <td><a href="/quotes/1" class="route-link">/quotes/1</a></td>
+            <td>Get all quote by ID</td>
+          </tr>
+          <tr>
+            <td><a href="/posts" class="route-link">/posts</a></td>
+            <td>Get all posts</td>
+          </tr>
+          <tr>
+            <td><a href="/posts/1" class="route-link">/posts/1</a></td>
+            <td>Get post by ID</td>
+          </tr>
+          <tr>
+            <td><a href="/users" class="route-link">/users</a></td>
+            <td>Get all 20 users</td>
+          </tr>
+          <tr>
+            <td><a href="/users/1" class="route-link">/users/1</a></td>
+            <td>Get user by id</td>
+          </tr>
+        </table>
+        <p class="note-desc">Note: You can take a look at the <a href="/docs" class="route-link">documentation</a> for usage
+          examples.</p>
+      </div>
     </div>
-    
-    <p class="sub-text">Output</p>
-    <blockquote>
-      <pre class="language-js">
-        <code id="code-output">
-//fetch data to get the output
-        </code>
-      </pre>
-    </blockquote>
-  </div>
-
-  <div class="resources-section section">
-    <p class="header-title"><span class="underline-text">Resources</span></p>
-    <p class="desc">Here are the resources that can be accessed through our API:</p>
-    <table class="resources-list">
-      <tr>
-        <td><a href="/quotes" class="route-link">/quotes</a></td>
-        <td>100 quotes</td>
-      </tr>
-      <tr>
-        <td><a href="/posts" class="route-link">/posts</a></td>
-        <td>100 posts</td>
-      </tr>
-      <tr>
-        <td><a href="/users" class="route-link">/users</a></td>
-        <td>20 users</td>
-      </tr>
-    </table>
-    <p class="note">Note: Results are paginated by 20. Pass pageSize=100 as a parameter to get all results. Also, new resources may be added in the future.</p>
-  </div>
-
-  <div class="routes-section section">
-    <p class="header-title"><span class="underline-text">Routes</span></p>
-    <p class="desc">HTTPS and HTTP are both supported.</p>
-    <table class="routes-list">
-      <tr>
-        <td><a href="/quotes" class="route-link">/quotes</a></td>
-        <td>Get all quotes</td>
-      </tr>
-      <tr>
-        <td><a href="/quotes/1" class="route-link">/quotes/1</a></td>
-        <td>Get all quote by ID</td>
-      </tr>
-      <tr>
-        <td><a href="/posts" class="route-link">/posts</a></td>
-        <td>Get all posts</td>
-      </tr>
-      <tr>
-        <td><a href="/posts/1" class="route-link">/posts/1</a></td>
-        <td>Get post by ID</td>
-      </tr>
-      <tr>
-        <td><a href="/users" class="route-link">/users</a></td>
-        <td>Get all 20 users</td>
-      </tr>
-      <tr>
-        <td><a href="/users/1" class="route-link">/users/1</a></td>
-        <td>Get user by id</td>
-      </tr>
-    </table>
-    <p class="note">Note: You can take a look at the <a href="/docs" class="route-link">documentation</a> for usage examples.</p>
-  </div>
-</div>
-
-<%- include("./partials/footer") %>
+  </main>
+  <%- include("./partials/footer") %>
+  <%- include("./partials/scripts") %>
+</body>
+</html>

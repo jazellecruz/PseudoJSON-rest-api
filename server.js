@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors")
 const hljs = require('highlight.js');
-const quotes = require("./routes/quotes.js");
-const posts = require("./routes/posts");
-const users = require("./routes/users");
-const pages = require("./routes/pages");
+const quotes = require("./src/routes/quotes.js");
+const posts = require("./src/routes/posts");
+const users = require("./src/routes/users");
+const pages = require("./src/routes/pages");
 
 //Database connection
 mongoose.connect(process.env.MONGODB_URI);

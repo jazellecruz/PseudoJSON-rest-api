@@ -1,7 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include("./partials/header") %>
 
 <body>
-  <h1>This is the documentation!</h1>
-</body>
+  <main>
+    <%- include("./partials/navbar") %>
+    <div class="docs">
+      <div class="sub-section">
+        <h1 class="sub-heading docs-main-title">Getting Started</h1>
+        <p class="docs-desc">PseudoJSON is language-friendly and can be used in any projects that need data in JSON
+        format.</p>
+        <p class="docs-desc">The documentation will guide you on how you can use the API along with few examples.</p>
+      </div>
+      
+      <div class="sub-section">
+        <p class="docs-subtitle sub-heading">Fetching a Resource</p>
+        <p class="docs-desc">By default, resources are paginated by 20. You can scroll down to see how to get the
+          total amount of each resource.
+        </p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes');
+            </code>
+          </pre>
+        </blockquote>
+        <p class="docs-subtitle sub-heading">Paginating Resources</p>
+        <p class="docs-desc inline-block-format">Pass in <pre class="tag-format">pageSize</pre> to limit results and <pre
+            class="tag-format">page</pre>
+          to get the next set of results.
+        </p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes?pageSize=30&page=1');
+            </code>
+          </pre>
+        </blockquote>
+      </div>
 
-<%- include("./partials/footer") %>
+      <div class="sub-section">
+        <h1 class="docs-subtitle sub-heading">Quotes</h1>
+
+        <h3>Get all quotes</h3>
+        <p class="inline-block-format"><span class="note-text">Note: </span> You can pass in
+          <pre class="tag-format">pageSize=100</pre>
+          as a query to get the maximum number of quotes.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Get a single quote</h3>
+        <p>You can get a quote by its ID.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes/1');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Get quotes by category</h3>
+        <p class="inline-block-format">Categories:
+          <pre class="tag-format">success</pre>,
+          <pre class="tag-format">money</pre>,
+          <pre class="tag-format">motivational</pre>,
+          <pre class="tag-format">power</pre>,
+          <pre class="tag-format">philosophy</pre>,
+          <pre class="tag-format">life</pre>,
+          <pre class="tag-format">happiness</pre>,
+          <pre class="tag-format">love</pre>,
+          <pre class="tag-format">wisdom</pre>,
+          <pre class="tag-format">hope</pre>
+        </p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes?category=success');
+            </code>
+          </pre>
+        </blockquote>
+      </div>
+
+      <div class="sub-section">
+        <h1 class="docs-subtitle sub-heading">Posts</h1>
+
+        <h3>Get all posts</h3>
+        <p class="inline-block-format"><span class="note-text">Note: </span> You can pass in
+          <pre class="tag-format">pageSize=100</pre>
+          as a query to get the maximum number of posts.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/posts');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Get a single post</h3>
+        <p>You can get a post by its ID.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/posts/1');
+            </code>
+          </pre>
+        </blockquote>
+      </div>
+
+      <div class="sub-section">
+        <h1 class="docs-subtitle sub-heading">Users</h1>
+
+        <h3>Get all users</h3>
+        <p class="inline-block-format"><span class="note-text">Note: </span> You can pass in
+          <pre class="tag-format">pageSize=20</pre>
+          as a query to get the maximum number of users.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/users');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Get a single user</h3>
+        <p>You can get a user by its ID.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/users/1');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Filter users</h3>
+        <p class="inline-block-format">You can pass in
+          <pre class="tag-format">gender</pre> to filter users.
+        </p>
+        <blockquote>
+          <pre class="language-js">
+          <code class="docs-code">
+fetch('http://localhost:8000/users?gender=male');
+          </code>
+        </pre>
+        </blockquote>
+      </div>
+    <p class="inline-block-format docs-note">Note: 
+      <pre class="tag-format">POST</pre>
+      <pre class="tag-format">PATCH</pre>
+      &
+      <pre class="tag-format">DELETE</pre>
+      methods will be implemented in the future.
+    </p>
+    </div>
+  </main>
+  <%- include("./partials/footer") %>
+  <%- include("./partials/scripts") %>
+</body>
+</html>
