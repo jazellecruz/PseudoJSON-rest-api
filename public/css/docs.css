@@ -1,0 +1,53 @@
+:root{
+  --bodyPadding: 32px;
+  --titleColor: #1b6061;
+}
+
+.docs{
+  padding: 0 32px;
+}
+
+.sub-heading{
+  color: var(--titleColor)
+}
+
+.docs-subtitle {
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.docs-main-title{
+  padding-top: 7rem;
+  font-size: calc(2.35vw + 33px);
+}
+
+.docs-desc{
+  margin-bottom: 10px;
+}
+
+.docs code{
+  font-size: 14px;
+}
+
+.docs code.hljs {
+  padding: .1rem 1rem;
+}
+
+.sub-section {
+padding: 40px 0;
+}
+
+.tag-format{
+  background-color: #dad8d8;
+  display: inline-block;
+  padding: .5px 4px;
+  border-radius: 4px;
+}
+
+.inline-block-format{
+  display: inline-block;
+}
+
+.docs-note{
+  line-height: 1.8;
+}
