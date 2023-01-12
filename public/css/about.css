@@ -1,0 +1,9 @@
+
+.about {
+  padding: 0 32px;
+  text-align: center;
+}
+
+.about .header{
+  padding-top: calc(7vh + 2rem);
+}
