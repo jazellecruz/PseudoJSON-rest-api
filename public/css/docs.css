@@ -17,7 +17,7 @@
 }
 
 .docs-main-title{
-  padding-top: 7rem;
+  padding-top: calc(7vh + 1rem);
   font-size: calc(2.35vw + 33px);
 }
 
