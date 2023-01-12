@@ -1,7 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
 <%- include("./partials/header") %>
-
 <body>
-  <h1>About page</h1>
+  <main>
+    <%- include("./partials/navbar") %>
+    <div class="about">
+      <h1 class="header">PseudoJSON</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
+        perferendis, saepe itaque similique eveniet minima tempore reprehenderit illum doloremque 
+        voluptatum facilis obcaecati corrupti sequi ipsam sunt.</p>
+      <h3>Why?</h3>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
+        perferendis, saepe itaque similique eveniet minima tempore reprehenderit illum doloremque 
+        voluptatum facilis obcaecati corrupti sequi ipsam sunt.</p>
+      <h3>Credits</h3>
+      <p><a href="/">Fake Name Generato</a>
+      - For dummy users and information</p>
+      <p><a href="/">DiceBear Avatars</a>
+        - For user images</p>
+      <p><a href="/">Lipsum Generator</a>
+        - For lorem ipsum for posts data.</p>
+    </div>
+  </main>
+  <%- include("./partials/scripts") %>
 </body>
-
-<%- include("./partials/footer") %>
+</html>
