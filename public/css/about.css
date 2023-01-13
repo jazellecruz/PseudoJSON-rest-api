@@ -1,9 +1,32 @@
 
 .about {
   padding: 0 32px;
-  text-align: center;
+  text-align: left;
+}
+
+.about .product-name{
+  padding-top: calc(7vh + 2rem);
+  font-size: calc(3vw + 24px);
+}
+
+.about p {
+  font-size: calc(.18vw + 16px);
+  line-height: 1.8;
+}
+
+.about .sub-section{
+  padding: 5vh 0;
+}
+
+.about h3.header{
+  font-size: calc(.65vw + 26px);
 }
 
 .about .header{
-  padding-top: calc(7vh + 2rem);
+  padding-bottom: 10px;
+  color: #1b6061;
+}
+
+.about a {
+  color: #078385;
 }
