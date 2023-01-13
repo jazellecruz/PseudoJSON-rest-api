@@ -5,23 +5,33 @@
   <main>
     <%- include("./partials/navbar") %>
     <div class="about">
-      <h1 class="header">PseudoJSON</h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
+      <div class="sub-section">
+        <h1 class="header product-name">PseudoJSON</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
         perferendis, saepe itaque similique eveniet minima tempore reprehenderit illum doloremque 
         voluptatum facilis obcaecati corrupti sequi ipsam sunt.</p>
-      <h3>Why?</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
-        perferendis, saepe itaque similique eveniet minima tempore reprehenderit illum doloremque 
-        voluptatum facilis obcaecati corrupti sequi ipsam sunt.</p>
-      <h3>Credits</h3>
-      <p><a href="/">Fake Name Generato</a>
-      - For dummy users and information</p>
-      <p><a href="/">DiceBear Avatars</a>
-        - For user images</p>
-      <p><a href="/">Lipsum Generator</a>
-        - For lorem ipsum for posts data.</p>
+      </div>
+      
+      <div class="sub-section">
+        <h3 class="header">Why?</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quos repudiandae aliquid officia, 
+          perferendis, saepe itaque similique eveniet minima tempore reprehenderit illum doloremque 
+          voluptatum facilis obcaecati corrupti sequi ipsam sunt.</p>
+      </div>
+   
+      <div class="sub-section">
+        <h3 class="header">Credits</h3>
+        <p><a href="/">Fake Name Generator</a>
+        - For generating dummy users with information.</p>
+        <p><a href="/">DiceBear Avatars</a>
+          - For user images.</p>
+        <p><a href="/">Lipsum Generator</a>
+          - For lorem ipsum texts for posts data.</p>
+      </div>
+     
     </div>
   </main>
+  <%- include("./partials/footer") %>
   <%- include("./partials/scripts") %>
 </body>
 </html>
