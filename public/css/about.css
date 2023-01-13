@@ -12,6 +12,7 @@
 .about p {
   font-size: calc(.18vw + 16px);
   line-height: 1.8;
+  hyphens: auto;
 }
 
 .about .sub-section{
