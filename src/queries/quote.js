@@ -65,77 +65,32 @@ const getQuoteById = async(id) => {
 }
 
 // add a new quote 
-const postQuote = async(entry) => {
-  let response;
-  let { id, author, quote, category } = await entry
-  
-  let newQuote = new Quote({
-    id: id,
-    author: author,
-    quote: quote,
-    category: category,
-  });
-
-  await newQuote.save()
-  .then(res => response = new ApiResponse(res))
-  .catch(err => response = new ErrorMessage("An Error occured while posting data.", error = stringify(err.message)))
-
-  return response;
+const addQuote = async(entry) => {
+  // make a new object with the body sent by the user then return 
+  // it as a normal response
 }
 
 // modify a quote
 const modifyQuote = async(id, entry) => {
-  let response;
-
-  try {
-    let result = await Quote.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
-  } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
-  }
- 
-  return response;
+  // find the resource by its id then make a new object
+  // modifying it with the field/s sent by the user
+  // then return it as a response
 }
 
 // replace a whole document
 // NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID
 const replaceQuote = async(id, entry) => {
-  let response;
-  let quoteId = id;
-  let { newId, author, quote, category } = entry;
-
-  try {
-    let result = await Quote.replaceOne({ id : quoteId },
-      {
-        id : newId,
-        author: author,
-        quote: quote,
-        category: category,
-      });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
-
-  } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
-  }
- 
-  return response;
+  // make a new object with the fields sent by the user but
+  // the id will remain the same  
 }
 
 // deleting a quote 
 const deleteQuote = async(id) => {
-  let response;
-  
-  try {
-    let result = await Quote.deleteOne({ id : id });
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing deletion.", error = stringify(err.message))
-  }
-
-  return response;
+  // find the resource by its id then return it
+  // along with isDeleted and date of deletion keys as a response  
 }
 
 
-module.exports = { getQuotes, getQuoteById, postQuote, modifyQuote, replaceQuote, deleteQuote }
+module.exports = { getQuotes, getQuoteById, addQuote, modifyQuote, replaceQuote, deleteQuote }
 

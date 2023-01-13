@@ -64,100 +64,29 @@ const getUserById = async(id) => {
 
 //add a new user 
 const addUser = async(entry) => {
-  let response;
-  let { 
-    id,
-    firstName,
-    lastName,
-    middleName,
-    gender,
-    birthDate,
-    email,
-    phone,
-    imgUrl
-  } = entry
-
-  let newUser = new User({
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    middleName: middleName,
-    gender: gender,
-    birthDate: birthDate,
-    email: email,
-    phone: phone,
-    imgUrl: imgUrl
-  })
-
-  await newUser.save()
-  .then(res => response = res)
-  .catch(err => new ErrorMessage("An error occured while performing request.", error = stringify(err.message)))
-
-  return response
+  // make a new object with the body sent by the user then return 
+  // it as a normal response 
 }
 
 // update or modify a user 
 const modifyUser = async(id, entry) => {
-  let response
-
-  try {
-    let result = await User.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
-
-  return response
+  // find the resource by its id then make a new object
+  // modifying it with the field/s sent by the user
+  // then return it as a response  
 }
 
 // replace a user
 // NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID 
 const replaceUser = async(id, user) => {
-  let response
-  let userId = id
-  let { 
-    newId,
-    firstName,
-    middleName,
-    lastName,
-    gender,
-    birthDate,
-    email,
-    phone
-  } = user
-
-  try {
-    let result = await User.replaceOne({ id: userId }, {
-      id: newId,
-      firstName: firstName,
-      middleName: middleName,
-      lastName: lastName,
-      gender: gender,
-      birthDate: birthDate,
-      email: email,
-      phone: phone
-    });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace");
-
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
-
-  return response
+  // make a new object with the fields sent by the user but
+  // the id will remain the same  
 }
 
 //delete a user
 const deleteUser = async(id) => {
-  let response 
-
-  try {
-    let result = await User.deleteOne({ id : id })
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
-  return response
+  // find the resource by its id then return it
+  // along with isDeleted and date of deletion keys as a response
 }
 
 
