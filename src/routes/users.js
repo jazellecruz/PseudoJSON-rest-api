@@ -5,7 +5,6 @@ const { getUsers,
         modifyUser, 
         replaceUser, 
         deleteUser } = require("../queries/user");
-const { authenticateUser } = require("../middlewares/auth");
 
 router.get("/", async(req, res) => {
   let response = await getUsers(req.query);
@@ -17,22 +16,22 @@ router.get("/:id", async(req, res) => {
   res.send(response);
 });
 
-router.post("/", authenticateUser, async(req, res) => {
+router.post("/", async(req, res) => {
   let response = await addUser(req.body);
   res.send(response);
 });
 
-router.patch("/:id", authenticateUser, async(req, res) => {
+router.patch("/:id", async(req, res) => {
   let response = await modifyUser(req.params.id, req.body);
   res.send(response);
 });
 
-router.put("/:id", authenticateUser, async(req, res) => {
+router.put("/:id", async(req, res) => {
   let response = await replaceUser(req.params.id, req.body);
   res.send(response);
 });
 
-router.delete("/:id", authenticateUser, async(req, res) => {
+router.delete("/:id", async(req, res) => {
   let response = await deleteUser(req.params.id);
   res.send(response);
 });
