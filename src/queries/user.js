@@ -64,29 +64,143 @@ const getUserById = async(id) => {
 
 //add a new user 
 const addUser = async(entry) => {
-  // make a new object with the body sent by the user then return 
-  // it as a normal response 
+  let response;
+  let { id, firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+
+  try {
+    const newUser = new User({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      middleName: middleName,
+      gender: gender,
+      birthDate: birthDate,
+      email: email,
+      phone: phone,
+      imgUrl: imgUrl
+    })
+  
+    response = {
+      user: newUser,
+      isAdded: true,
+      addedOn: new Date().toUTCString()
+    }
+
+  } catch(err){
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // update or modify a user 
-const modifyUser = async(id, entry) => {
-  // find the resource by its id then make a new object
-  // modifying it with the field/s sent by the user
-  // then return it as a response  
+const modifyUser = async(userId, entry) => {
+  let response;
+  let { id, firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+
+  try {
+    let result = await User.find({ id : userId }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `User with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      let updatedUser = {
+        id: userId,
+        firstName: firstName || result.firstName,
+        lastName: lastName || result.lastName,
+        middleName: middleName || result.middleName,
+        gender: gender || result.gender,
+        birthDate: birthDate || result.birthDate,
+        email: email || result.email,
+        phone: phone || result.phone,
+        imgUrl: imgUrl || result.imgUrl
+      }
+
+      response = {
+        user: updatedUser,
+        isModified: true,
+        modifiedOn: new Date().toUTCString()
+      }
+
+    }
+    
+  } catch(err){
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // replace a user
 // NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID 
 const replaceUser = async(id, user) => {
-  // make a new object with the fields sent by the user but
-  // the id will remain the same  
-}
+  let response
+  let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
 
+  try {
+    let result = await User.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `User with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      let newUser = new User({
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        middleName: middleName,
+        gender: gender,
+        birthDate: birthDate,
+        email: email,
+        phone: phone,
+        imgUrl: imgUrl
+      })
+
+      response = {
+        user: newUser,
+        isReplaced: true,
+        replacedOn: new Date().toUTCString()
+      }
+    }
+  }catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
+}
 //delete a user
 const deleteUser = async(id) => {
-  // find the resource by its id then return it
-  // along with isDeleted and date of deletion keys as a response
+  let response
+
+  try {
+    let result = await User.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `User with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      response = {
+        user: result,
+        isDeleted: true,
+        deletedOn: new Date().toUTCString()
+      }
+    }
+  }catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 
