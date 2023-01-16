@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors")
 const hljs = require('highlight.js');
-const quotes = require("./src/routes/quotes.js");
+const quotes = require("./src/routes/quotes");
 const posts = require("./src/routes/posts");
 const users = require("./src/routes/users");
 const pages = require("./src/routes/pages");
@@ -19,17 +19,11 @@ const usersDb = require("./src/routes/users-db");
 //Database connection
 mongoose.connect(process.env.MONGODB_URI);
 
+app.use(cors());
 app.use(express.json());
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-
-// for localhost
-app.use(cors({
-  origin: "*",
-  methods: ["GET"]
-}));
-
 
 app.use("/", pages);
 app.use("/quotes", quotes);
@@ -45,7 +39,6 @@ app.use("/db/users", usersDb)
 app.get("*", (req, res) => {
   res.status(404).send("Page Not Found");
 })
-
 
 app.listen(8000, process.env.IP_ADDRESS || "localhost", (req, res) => {
   console.log("Magic is currently happening on port 8000.")
