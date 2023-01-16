@@ -7,13 +7,13 @@ const stringify = (entry) => {
   return string
 }
 
-const checkIfProcessed = (acknowledged, modified, action) => {
+const checkIfProcessed = (acknowledged, modified, method) => {
   let response
 
   if (acknowledged && modified) {
     response = {
       message: "Request successfully fulfilled!",
-      action: action,
+      method: action,
       acknowlegded: true,
       processed: true,
     }
