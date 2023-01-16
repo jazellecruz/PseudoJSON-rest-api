@@ -98,6 +98,9 @@ fetch('http://localhost:8000/quotes?category=success');
             <code class="docs-code">
 fetch('http://localhost:8000/quotes', {
   method: 'POST',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
   body: JSON.stringify({
     id: 101,
     author: 'Albert Einstein',
@@ -126,6 +129,9 @@ fetch('http://localhost:8000/quotes', {
 /* updating the author field of quote with id of 1 */
 fetch('http://localhost:8000/quotes/1', {
   method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
   body: JSON.stringify({
     author: 'I am the author!',
   })
@@ -151,6 +157,9 @@ fetch('http://localhost:8000/quotes/1', {
 /* replacing the quote with id of 1 */
 fetch('http://localhost:8000/quotes/1', {
   method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
   body: JSON.stringify({
     author: 'Albert Einstein',
     quote: 'Strive not to be a success, but rather to be of value.',
