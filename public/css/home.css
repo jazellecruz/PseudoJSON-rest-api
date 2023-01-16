@@ -126,14 +126,21 @@ table {
 }
 
 td{
-  width: 50%;
   padding: 6px 0;
+}
+
+.resources-list tr td{
+  width: 50%;
+}
+
+.routes-list tr td{
+  width: 30%;
 }
 
 @media screen and (max-width: 951px) {
 
-  .desc {
-    padding: 0 32px;
+  main .home {
+    padding: 0 12px;
   }
 
 }
