@@ -41,5 +41,5 @@ app.get("*", (req, res) => {
 })
 
 app.listen(8000, process.env.IP_ADDRESS || "localhost", (req, res) => {
-  console.log("Magic is currently happening on port 8000.")
+  console.log("Howdy from port 8000!")
 });
