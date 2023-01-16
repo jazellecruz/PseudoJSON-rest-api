@@ -24,5 +24,16 @@ const checkIfProcessed = (acknowledged, modified, action) => {
   return response
 }
 
+const isArrayOrString = (data) => {
+  if(typeof data === "string") {
+    return [data]
+  } else if (Array.isArray(data)){
+    return [...data]
+  } else if(!data){
+    return undefined;
+  } else {
+    throw new Error(`Entered value is: ${typeof data}, not a string nor an array!`)
+  }
+}
 
-module.exports = { stringify, checkIfProcessed}
+module.exports = { stringify, checkIfProcessed, isArrayOrString }
