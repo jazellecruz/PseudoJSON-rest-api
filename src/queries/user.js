@@ -94,12 +94,12 @@ const addUser = async(entry) => {
 }
 
 // update or modify a user 
-const modifyUser = async(userId, entry) => {
+const modifyUser = async(id, entry) => {
   let response;
-  let { id, firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+  let { id : newId , firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
 
   try {
-    let result = await User.find({ id : userId }, options);
+    let result = await User.find({ id : id }, options);
 
     if (!result.length) {
       response = new ErrorMessage(
@@ -108,20 +108,20 @@ const modifyUser = async(userId, entry) => {
         code = 404
         )
     } else {
-      let updatedUser = {
-        id: userId,
-        firstName: firstName || result.firstName,
-        lastName: lastName || result.lastName,
+      let modifiedUser = {
+        id: id,
+        firstName: firstName || result[0].firstName,
+        lastName: lastName || result[0].lastName,
         middleName: middleName || result.middleName,
-        gender: gender || result.gender,
-        birthDate: birthDate || result.birthDate,
-        email: email || result.email,
-        phone: phone || result.phone,
-        imgUrl: imgUrl || result.imgUrl
+        gender: gender || result[0].gender,
+        birthDate: birthDate || result[0].birthDate,
+        email: email || result[0].email,
+        phone: phone || result[0].phone,
+        imgUrl: imgUrl || result[0].imgUrl
       }
 
       response = {
-        user: updatedUser,
+        user: modifiedUser,
         isModified: true,
         modifiedOn: new Date().toUTCString()
       }
@@ -140,7 +140,7 @@ const modifyUser = async(userId, entry) => {
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID 
 const replaceUser = async(id, user) => {
   let response
-  let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+  let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = user;
 
   try {
     let result = await User.find({ id : id }, options);
@@ -170,7 +170,7 @@ const replaceUser = async(id, user) => {
         replacedOn: new Date().toUTCString()
       }
     }
-  }catch(err) {
+  } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
 
@@ -196,7 +196,7 @@ const deleteUser = async(id) => {
         deletedOn: new Date().toUTCString()
       }
     }
-  }catch(err) {
+  } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
 

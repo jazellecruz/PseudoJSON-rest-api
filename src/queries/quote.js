@@ -1,7 +1,7 @@
 const ApiResponse = require("../classes/apiResponse");
 const ErrorMessage = require("../classes/error");
 const Quote = require("../models/quote");
-const { stringify, checkIfProcessed } = require("../helpers/helpers")
+const { stringify, isArrayOrString } = require("../helpers/helpers")
 const { options } = require("../constants/constants")
 
 // get all quotes w/ or w/o query
@@ -66,29 +66,127 @@ const getQuoteById = async(id) => {
 
 // add a new quote 
 const addQuote = async(entry) => {
-  // make a new object with the body sent by the user then return 
-  // it as a normal response
+  let response;
+  let { id, author, quote, category } = entry
+ 
+  try{
+    let newQuote = {
+      id: id,
+      author: author,
+      quote: quote,
+      // if the user only passed a string, isArrayOrString prevents the string from spreading
+      // and returns it as an array instead 
+      category: isArrayOrString(category)
+    }
+    response = {
+      quote: newQuote,
+      isAdded: true,
+      addedOn: new Date().toUTCString()
+    }
+  } catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // modify a quote
 const modifyQuote = async(id, entry) => {
-  // find the resource by its id then make a new object
-  // modifying it with the field/s sent by the user
-  // then return it as a response
+  let response;
+  let { author, quote, category } = entry
+  try{
+    let result = await Quote.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `Quote with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      let modifiedQuote = {
+        id: id,
+        author: author || result[0].author,
+        quote: quote || result[0].quote,
+        category: isArrayOrString(category) || result[0].category
+      }
+
+      response ={
+        quote: modifiedQuote,
+        isModified: true,
+        modifiedOn: new Date().toUTCString()
+      }
+    }
+  } catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // replace a whole document
 // NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID
 const replaceQuote = async(id, entry) => {
-  // make a new object with the fields sent by the user but
-  // the id will remain the same  
+  let response;
+  let { author, quote, category } = entry
+  try{
+    let result = await Quote.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `Quote with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      let modifiedQuote = {
+        id: id,
+        author: author,
+        quote: quote,
+        category: isArrayOrString(category)
+      }
+
+      response ={
+        quote: modifiedQuote,
+        isReplaced: true,
+        replacedOn: new Date().toUTCString()
+      }
+    }
+
+  } catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // deleting a quote 
 const deleteQuote = async(id) => {
-  // find the resource by its id then return it
-  // along with isDeleted and date of deletion keys as a response  
+  let response;
+
+  try {
+    let result = await Quote.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `Quote with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      response = {
+        quote: result,
+        isDeleted: true,
+        deletedOn: new Date().toUTCString()
+      }
+    }
+
+  } catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 

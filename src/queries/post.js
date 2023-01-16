@@ -87,9 +87,35 @@ const addPost = async(post) => {
 
 // modify a post 
 const modifyPost = async(id, post) => {
-  // find the resource by its id then make a new object
-  // modifying it with the field/s sent by the user
-  // then return it as a response
+  let response;
+  let { title, body } = post
+  try{
+    let result = await Post.find({ id : id }, options);
+
+    if (!result.length) {
+      response = new ErrorMessage(
+        `Post with id: ${id} does not exist.`,
+        error = "Resources Not Found.",
+        code = 404
+        )
+    } else {
+      let modifiedPost = {
+        id: id,
+        title: title || result[0].title,
+        body: body || result[0].title
+      }
+
+      response ={
+        post: modifiedPost,
+        isModified: true,
+        modifiedOn: new Date().toUTCString()
+      }
+    }
+  }catch(err) {
+    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+  }
+
+  return response
 }
 
 // replace a post 
