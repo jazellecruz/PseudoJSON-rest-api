@@ -84,6 +84,107 @@ fetch('http://localhost:8000/quotes?category=success');
             </code>
           </pre>
         </blockquote>
+
+        <h3>Add a new quote</h3>
+        <p>Note: Adding a quote will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">POST</pre>
+        request then returns the added quote with the 
+        <pre class="tag-format">isAdded</pre>
+        &
+        <pre class="tag-format">addedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/quotes', {
+  method: 'POST',
+  body: JSON.stringify({
+    id: 101,
+    author: 'Albert Einstein',
+    quote: 'Strive not to be a success, but rather to be of value.',
+    category: 'motivational'
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+        
+        <h3>Update a quote</h3>
+        <p>Note: Updating a quote will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PATCH</pre>
+        request then returns the modified quote with the 
+        <pre class="tag-format">isModified</pre>
+        &
+        <pre class="tag-format">modifiedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* updating the author field of quote with id of 1 */
+fetch('http://localhost:8000/quotes/1', {
+  method: 'PATCH',
+  body: JSON.stringify({
+    author: 'I am the author!',
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Replace a quote</h3>
+        <p>Note: Replacing a quote will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PUT</pre>
+        request then returns the modified quote with the 
+        <pre class="tag-format">isModified</pre>
+        &
+        <pre class="tag-format">modifiedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* replacing the quote with id of 1 */
+fetch('http://localhost:8000/quotes/1', {
+  method: 'PUT',
+  body: JSON.stringify({
+    author: 'Albert Einstein',
+    quote: 'Strive not to be a success, but rather to be of value.',
+    category: 'motivational'
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Delete a quote</h3>
+        <p>Note: Deleting a quote will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">DELETE</pre>
+        request then returns the specified quote with the 
+        <pre class="tag-format">isDeleted</pre>
+        &
+        <pre class="tag-format">deletedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* deleting the quote with id of 1 */
+fetch('http://localhost:8000/quotes/1', {
+  method: 'DELETE'
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
       </div>
 
       <div class="sub-section">
@@ -107,6 +208,114 @@ fetch('http://localhost:8000/posts');
           <pre class="language-js">
             <code class="docs-code">
 fetch('http://localhost:8000/posts/1');
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Add a new post</h3>
+        <p>Note: Adding a post will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">POST</pre>
+        request then returns the added post with the 
+        <pre class="tag-format">isAdded</pre>
+        &
+        <pre class="tag-format">addedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/posts', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    id: 101,
+    title: 'Praesent tempus nisl ante, at elementum neque varius malesuada.',
+    body: 'Donec euismod, erat in lacinia mattis, tellus mauris varius lacus, facilisis luctus leo lorem vitae odio.',
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Update a post</h3>
+        <p>Note: Updating a post will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PATCH</pre>
+        request then returns the modified post with the 
+        <pre class="tag-format">isModified</pre>
+        &
+        <pre class="tag-format">modifiedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* updating the title field of post with id of 1 */
+fetch('http://localhost:8000/posts/1', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    title: 'Integer hendrerit eu massa ut blandit.',
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Replace a post</h3>
+        <p>Note: Replacing a post will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PUT</pre>
+        request then returns the modified post with the 
+        <pre class="tag-format">isModified</pre>
+        &
+        <pre class="tag-format">modifiedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* replacing the post with id of 1 */
+fetch('http://localhost:8000/posts/1', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    title: 'Praesent tempus nisl ante, at elementum neque varius malesuada.',
+    body: 'Donec euismod, erat in lacinia mattis, tellus mauris varius lacus, facilisis luctus leo lorem vitae odio.',
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Delete a post</h3>
+        <p>Note: Deleting a post will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">DELETE</pre>
+        request then returns the specified post with the 
+        <pre class="tag-format">isDeleted</pre>
+        &
+        <pre class="tag-format">deletedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* deleting the post with id of 1 */
+fetch('http://localhost:8000/posts/1', {
+  method: 'DELETE'
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
             </code>
           </pre>
         </blockquote>
@@ -148,14 +357,119 @@ fetch('http://localhost:8000/users?gender=male');
           </code>
         </pre>
         </blockquote>
+
+        <h3>Add a new user</h3>
+        <p>Note: Adding a user will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">POST</pre>
+        request then returns the added user with the 
+        <pre class="tag-format">isAdded</pre>
+        &
+        <pre class="tag-format">addedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    id: 101,
+    firstName: 'Sebastian',
+    lastName: 'Carter',
+    // insert other user data here
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Update a user</h3>
+        <p>Note: Updating a user will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PATCH</pre>
+        request then returns the modified user with the 
+        <pre class="tag-format">isModified</pre>
+        &
+        <pre class="tag-format">modifiedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* updating the author field of user with id of 1 */
+fetch('http://localhost:8000/users/1', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    firstName: 'Mike',
+    // other data goes here
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Replace a user</h3>
+        <p>Note: Replacing a user will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">PUT</pre>
+        request then returns the modified user with the 
+        <pre class="tag-format">isAdded</pre>
+        &
+        <pre class="tag-format">addedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+fetch('http://localhost:8000/users/1', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8'
+  },
+  body: JSON.stringify({
+    id: 101,
+    firstName: 'Sebastian',
+    lastName: 'Carter',
+    // insert other user data here
+  })
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
+
+        <h3>Delete a user</h3>
+        <p>Note: Deleting a user will not modify the actual database.</p>
+        <p class="inline-block-format">It will simulate a <pre class="tag-format">DELETE</pre>
+        request then returns the specified user with the 
+        <pre class="tag-format">isDeleted</pre>
+        &
+        <pre class="tag-format">deletedOn</pre>
+        properties.</p>
+        <blockquote>
+          <pre class="language-js">
+            <code class="docs-code">
+/* deleting the post with id of 1 */
+fetch('http://localhost:8000/users/1', {
+  method: 'DELETE'
+})
+.then(res => res.json())
+.then(json => console.log(json));
+
+            </code>
+          </pre>
+        </blockquote>
       </div>
-    <p class="inline-block-format docs-note">Note: 
-      <pre class="tag-format">POST</pre>
-      <pre class="tag-format">PATCH</pre>
-      &
-      <pre class="tag-format">DELETE</pre>
-      methods will be implemented in the future.
-    </p>
+
     </div>
   </main>
   <%- include("./partials/footer") %>
