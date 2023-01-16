@@ -83,28 +83,34 @@
         <p class="desc">HTTPS and HTTP are both supported.</p>
         <table class="routes-list">
           <tr>
+            <td>GET</td>
             <td><a href="/quotes" class="route-link">/quotes</a></td>
             <td>Get all quotes</td>
           </tr>
           <tr>
+            <td>GET</td>
             <td><a href="/quotes/1" class="route-link">/quotes/1</a></td>
-            <td>Get all quote by ID</td>
+            <td>Get a quote by ID</td>
           </tr>
           <tr>
-            <td><a href="/posts" class="route-link">/posts</a></td>
-            <td>Get all posts</td>
+            <td>POST</td>
+            <td><a href="/posts" class="route-link">/quotes</a></td>
+            <td>Add a quote</td>
           </tr>
           <tr>
-            <td><a href="/posts/1" class="route-link">/posts/1</a></td>
-            <td>Get post by ID</td>
+            <td>PATCH</td>
+            <td><a href="/posts/1" class="route-link">/quotes/1</a></td>
+            <td>Modify a quote</td>
           </tr>
           <tr>
-            <td><a href="/users" class="route-link">/users</a></td>
-            <td>Get all 20 users</td>
+            <td>PUT</td>
+            <td><a href="/users" class="route-link">/quotes/1</a></td>
+            <td>Replace a quote</td>
           </tr>
           <tr>
-            <td><a href="/users/1" class="route-link">/users/1</a></td>
-            <td>Get user by id</td>
+            <td>DELETE</td>
+            <td><a href="/users/1" class="route-link">/quotes/1</a></td>
+            <td>Delete a quote</td>
           </tr>
         </table>
         <p class="note-desc">Note: You can take a look at the <a href="/docs" class="route-link">documentation</a> for usage
