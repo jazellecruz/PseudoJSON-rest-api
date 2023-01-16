@@ -28,7 +28,7 @@ const modifyQuoteFromDb = async(id, entry) => {
 
   try {
     let result = await Quote.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PATCH")
   } catch(err) {
     response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
   }
@@ -50,7 +50,7 @@ const replaceQuoteFromDb = async(id, entry) => {
         quote: quote,
         category: category,
       });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PUT")
 
   } catch(err) {
     response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
@@ -65,7 +65,7 @@ const deleteQuoteFromDb = async(id) => {
   
   try {
     let result = await Quote.deleteOne({ id : id });
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
+    response = checkIfProcessed(result.acknowledged, result.deletedCount, "DELETE")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing deletion.", error = stringify(err.message))
   }

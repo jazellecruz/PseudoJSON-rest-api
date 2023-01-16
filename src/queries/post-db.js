@@ -28,7 +28,7 @@ const modifyPostFromDb = async(id, post) => {
 
   try {
     let result = await Post.updateOne({ id : id }, { $set : post })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PATCH")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
@@ -50,7 +50,7 @@ const replacePostFromDb = async(id, post) => {
       title: title,
       body: body
     })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace")
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PUT")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
@@ -64,7 +64,7 @@ const deletePostFromDb = async(id) => {
 
   try {
     let result = await Post.deleteOne({ id : id })
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
+    response = checkIfProcessed(result.acknowledged, result.deletedCount, "DELETE")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }

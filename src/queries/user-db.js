@@ -44,7 +44,7 @@ const modifyUserFromDb = async(id, entry) => {
 
   try {
     let result = await User.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "update/modify")
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PATCH")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
@@ -78,7 +78,7 @@ const replaceUserFromDb = async(id, entry) => {
       email: email,
       phone: phone
     });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "replace");
+    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PUT");
 
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
@@ -93,7 +93,7 @@ const deleteUserFromDb = async(id) => {
 
   try {
     let result = await User.deleteOne({ id : id })
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "delete")
+    response = checkIfProcessed(result.acknowledged, result.deletedCount, "DELETE")
   } catch(err) {
     response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
   }
