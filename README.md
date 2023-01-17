@@ -29,7 +29,7 @@ Have fun!!!
 Request for json data:
 
 ```javascript
-fetch("<insert url once deployed>")
+fetch("https://pseudojson.onrender.com/quotes")
 .then(res => res.json())
 .then(json => console.log(json))
 ```
