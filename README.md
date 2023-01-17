@@ -1,6 +1,6 @@
 # PseudoJSON - REST API
 
-[PseudoJSON]() is a simple and basic REST API that you can use when need dummy JSON data for your FrontEnd applications. This API is easy to use and beginner-friendly. No authentication is needed to request for data. 
+[PseudoJSON](https://pseudojson.onrender.com/) is a simple and basic REST API that you can use when need dummy JSON data for your FrontEnd applications. This API is easy to use and beginner-friendly. No authentication is needed to request for data. 
 
 ## Why?
 If you're a developer, you know that creating a backend server to host fake json data can be a time-consuming and a brain-cell-burning task to do when your primary focus is your frontend app/project. To reserve my stress-responses and anger for the inevitable bugs I will face in the future, I decided to make REST API that can send JSON data straight away whenever I need some to test my apps. 
@@ -20,9 +20,9 @@ Have fun!!!
 *Keep in mind that PseudoJSON is still in its first stages. Minor errors or bugs are normal. No need to worry! The API is still useful. If you encounter any major bugs/errors, feel free to make a pull request stating the issue.*
 
 ## Resources
-- 100 quotes: [<insert url once deployed>]()
-- 100 posts: [<insert url once deployed>]()
-- 20 users: [<insert url once deployed>]()
+- 100 quotes: [https://pseudojson.onrender.com/quotes](https://pseudojson.onrender.com/quotes)
+- 100 posts: [https://pseudojson.onrender.com//posts](https://pseudojson.onrender.com//posts)
+- 20 users: [https://pseudojson.onrender.com/users](https://pseudojson.onrender.com/users)
 
 ## Usage
 
@@ -33,7 +33,7 @@ fetch("<insert url once deployed>")
 .then(res => res.json())
 .then(json => console.log(json))
 ```
-*You can check out its [documentation]() for usage examples.*
+*You can check out its [documentation](https://pseudojson.onrender.com/docs) for usage examples.*
 
 ## Tech Stack
 
