@@ -1,6 +1,13 @@
 # PseudoJSON - REST API
 
-[PseudoJSON]() is a simple and basic REST API that provides placeholder data to help you with developing your front-end application. No authentication is needed to request for data. This project is made with Node.js, Express.js, and MongoDB. 
+[PseudoJSON]() is a simple and basic REST API that you can use when need dummy JSON data for your FrontEnd applications. This API is easy to use and beginner-friendly. No authentication is needed to request for data. 
+
+## Why?
+If you're a developer, you know that creating a backend server to host fake json data can be a time-consuming and a brain-cell-burning task to do when your primary focus is your frontend app/project. To reserve my stress-responses and anger for the inevitable bugs I will face in the future, I decided to make REST API that can send JSON data straight away whenever I need some to test my apps. 
+
+I hope you find PseudoJSON helpful and useful! If you don't, make a pull request or team-up with me so we can make awesome improvements! :)
+
+Have fun!!!
 
 ## Features
 - Simple and straightforward.
@@ -9,6 +16,8 @@
 - No sign-up/registration.
 - Pagination 
 - Can be used with Fetch API, AJAX, AXIOS, etc. for requests.
+
+*Keep in mind that PseudoJSON is still in its first stages. Minor errors or bugs are normal. No need to worry! The API is still useful. If you encounter any major bugs/errors, feel free to make a pull request stating the issue.*
 
 ## Resources
 - 100 quotes: [<insert url once deployed>]()
