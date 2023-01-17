@@ -40,6 +40,6 @@ app.get("*", (req, res) => {
   res.status(404).send("Page Not Found");
 })
 
-app.listen(8000, (req, res) => {
+app.listen(8000, '0.0.0.0', (req, res) => {
   console.log("Howdy from port 8000!")
 });
