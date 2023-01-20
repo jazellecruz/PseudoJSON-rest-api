@@ -1,6 +1,4 @@
 
-console.log("Hello from jsScript!")
-
 const navBtn = document.getElementById("responsive-toggle-btn");
 const navLinks= document.getElementsByClassName("navlinks-container")[0]
 const copyright = document.getElementById('copyright');
