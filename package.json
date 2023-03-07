@@ -4,9 +4,9 @@
   "description": "REST API with Node.js",
   "main": "server.js",
   "scripts": {
-    "test": "env-cmd mocha -R spec",
-    "start": "node server.js",
-    "build": "env-cmd mocha -R spec"
+    "test": "react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "keywords": [
     "rest",
