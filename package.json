@@ -4,8 +4,10 @@
   "description": "REST API with Node.js",
   "main": "server.js",
   "scripts": {
+    "test": "env-cmd mocha -R spec",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "env-cmd mocha -R spec",
+    "build": "env-cmd mocha -R spec"
   },
   "keywords": [
     "rest",
