@@ -15,6 +15,8 @@ const quotesDb = require("./src/routes/quotes-db");
 const postsDb = require("./src/routes/posts-db");
 const usersDb = require("./src/routes/users-db");
 
+// auth routes
+const admin = require("./src/routes/admin")
 
 //Database connection
 mongoose.connect(process.env.MONGODB_URI);
@@ -24,6 +26,9 @@ app.use(express.json());
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+// authentication routes
+app.use("/", admin)
 
 app.use("/", pages);
 app.use("/quotes", quotes);
