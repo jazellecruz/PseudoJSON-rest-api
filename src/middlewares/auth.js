@@ -7,7 +7,7 @@ const authenticateUser = async(req, res, next) => {
     // Object.getOwnPropertySymbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols
     // Symbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
     let cookie = req[Object.getOwnPropertySymbols(req)[1]].cookie
-
+    
     if(!cookie) {
       return res.status(401).send("No token for authentication received.");
     }
