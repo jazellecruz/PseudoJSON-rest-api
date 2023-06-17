@@ -35,10 +35,10 @@ app.use("/quotes", quotes);
 app.use("/posts", posts);
 app.use("/users", users)
 
-// db routes
-app.use("/db/quotes", quotesDb);
-app.use("/db/posts", postsDb);
-app.use("/db/users", usersDb)
+// routes for modifying the actual database
+app.use("/private/quotes", quotesDb);
+app.use("/private/posts", postsDb);
+app.use("/private/users", usersDb)
 
 // nonexisting routes
 app.get("*", (req, res) => {
