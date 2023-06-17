@@ -3,16 +3,17 @@ const Admin = require("../models/admin");
 const bcrypt = require("bcrypt")
 const {generateToken} = require("../utils/jwt")
 const {options} = require("../constants/constants")
+const {sanitizeInput} = require("../helpers/helpers")
 
 router.post("/login", async(req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  let username = sanitizeInput(req.body.username);
+  let password = sanitizeInput(req.body.password);
 
   try{
     let foundUser = await Admin.find({username : username}, options)
 
     if(!foundUser[0]) {
-      res.sendStatus(404);
+      res.status(404).send("No user found.");
       return;
     }
 
