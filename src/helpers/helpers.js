@@ -36,4 +36,32 @@ const isArrayOrString = (data) => {
   }
 }
 
-module.exports = { stringify, checkIfProcessed, isArrayOrString }
+const sanitizeInput = (input) => {
+  if(typeof input === "number") return input;
+
+  let charsToEscape = {
+    "<": "&lt;", 
+    ">": "&gt;"
+  }
+
+  try{
+    let inputToSanitize = input;
+    let sanitizedInput = "";
+    
+    for(const char of inputToSanitize){
+      if(char === "<" || char === ">") {
+        sanitizedInput += charsToEscape[char]
+      } else {
+        sanitizedInput += char
+      }
+    }
+
+    return sanitizedInput;
+
+  } catch(err) {
+    console.log("Error in sanitizing input:", err)
+  }
+
+}
+
+module.exports = { stringify, checkIfProcessed, isArrayOrString, sanitizeInput }
