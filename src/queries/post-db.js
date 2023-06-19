@@ -6,7 +6,7 @@ const { stringify, checkIfProcessed } = require("../helpers/helpers");
 
 // add new user
 const addPostOnDb = async(post) => {
-  let response
+  let response;
   let { id, title, body } = post
 
   let newPost = new Post({
