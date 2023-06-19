@@ -39,24 +39,25 @@ const isArrayOrString = (data) => {
 const sanitizeInput = (input) => {
   if(typeof input === "number") return input;
 
-  let charsToEscape = {
+  let illegalCharacters = {
     "<": "&lt;", 
-    ">": "&gt;"
+    ">": "&gt;",
+    "=": "&#61;"
   }
 
   try{
-    let inputToSanitize = input;
-    let sanitizedInput = "";
+    let sanitizedInput = [];
+    let inputToSanitize = input.trim()
     
     for(const char of inputToSanitize){
-      if(char === "<" || char === ">") {
-        sanitizedInput += charsToEscape[char]
+      if(char === "<" || char === ">" || char === "=") {
+        sanitizedInput.push(illegalCharacters[char])
       } else {
-        sanitizedInput += char
+        sanitizedInput.push(char)
       }
     }
 
-    return sanitizedInput;
+    return sanitizedInput.join('');
 
   } catch(err) {
     console.log("Error in sanitizing input:", err)
