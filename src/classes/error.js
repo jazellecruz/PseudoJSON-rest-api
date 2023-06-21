@@ -7,4 +7,14 @@ class ErrorMessage{
   }
 }
 
-module.exports = ErrorMessage
+class APIError extends Error {
+  constructor(httpCode, clientMessage, err){
+    super(err)
+
+    // this.type = type
+    this.httpCode = httpCode;
+    this.clientMessage = clientMessage;
+    // this.details = details
+  }
+}
+module.exports = {ErrorMessage, APIError}
