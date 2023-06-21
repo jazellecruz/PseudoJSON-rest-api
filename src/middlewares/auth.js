@@ -3,6 +3,10 @@ const Admin = require("../models/admin")
 const {options}= require("../constants/constants")
 
 const authenticateUser = async(req, res, next) => {
+  if(process.env.NODE_ENV === "development") {
+    return next();
+  }
+  
   try{
     // Object.getOwnPropertySymbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols
     // Symbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
