@@ -1,75 +1,78 @@
 const User = require("../models/user")
-const ErrorMessage = require("../classes/error");
+const {ErrorMessage, APIError} = require("../classes/error");
 const { stringify, checkIfProcessed } = require("../helpers/helpers");
 
 // functions for modyfing the actual database
 
 // add new user
 const addUserOnDb = async(entry) => {
-  let response;
-  let { 
-    id,
-    firstName,
-    lastName,
-    middleName,
-    gender,
-    birthDate,
-    email,
-    phone,
-    imgUrl
-  } = entry
+  try{
+    let { 
+      id,
+      firstName,
+      lastName,
+      middleName,
+      gender,
+      birthDate,
+      email,
+      phone,
+      imgUrl
+    } = entry
+  
+    let newUser = new User({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      middleName: middleName,
+      gender: gender,
+      birthDate: birthDate,
+      email: email,
+      phone: phone,
+      imgUrl: imgUrl
+    });
 
-  let newUser = new User({
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
-    middleName: middleName,
-    gender: gender,
-    birthDate: birthDate,
-    email: email,
-    phone: phone,
-    imgUrl: imgUrl
-  })
+    let response = await newUser.save();
 
-  await newUser.save()
-  .then(res => response = res)
-  .catch(err => new ErrorMessage("An error occured while performing request.", error = stringify(err.message)))
-
-  return response
+    return response; 
+  } catch(err) {
+    throw new APIError(500, "An error occured while performing request.", err);
+  }
 }
 
 // modify a single user
 const modifyUserFromDb = async(id, entry) => {
-  let response
+  try{
+    let result = await User.updateOne({ id : id }, { $set : entry });
 
-  try {
-    let result = await User.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PATCH")
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.modifiedCount,
+      modifiedCount: result.modifiedCount,
+    }
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+    throw new APIError(500, "An error occured while performing request.", err);
   }
-
-  return response
 }
 
 // replace a whole document
+// id cannot be replaced
 const replaceUserFromDb = async(id, entry) => {
-  let response
-  let userId = id
-  let { 
-    newId,
-    firstName,
-    middleName,
-    lastName,
-    gender,
-    birthDate,
-    email,
-    phone
-  } = entry
+  try{
+    let userId = id
+    let { 
+      firstName,
+      middleName,
+      lastName,
+      gender,
+      birthDate,
+      email,
+      phone
+    } = entry
 
-  try {
     let result = await User.replaceOne({ id: userId }, {
-      id: newId,
+      id: userId,
       firstName: firstName,
       middleName: middleName,
       lastName: lastName,
@@ -78,26 +81,34 @@ const replaceUserFromDb = async(id, entry) => {
       email: email,
       phone: phone
     });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PUT");
 
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.modifiedCount,
+      modifiedCount: result.modifiedCount,
+    }
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+    throw new APIError(500, "An error occured while performing request.", err);
   }
-
-  return response
 }
 
 //delete a single user
 const deleteUserFromDb = async(id) => {
-  let response 
+  try{
+    let result = await User.deleteOne({ id : id });
 
-  try {
-    let result = await User.deleteOne({ id : id })
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "DELETE")
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.deletedCount,
+      deletedCount: result.deletedCount,
+    }
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+    throw new APIError(500, "An error occured while performing request.", err);
   }
-  return response
 }
 
 module.exports = { addUserOnDb, modifyUserFromDb, replaceUserFromDb, deleteUserFromDb }

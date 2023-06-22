@@ -16,9 +16,10 @@ const addPostOnDb = async(post) => {
     });
 
     let response = await newPost.save();
+
     return response;
   } catch(err){
-    throw (new APIError(500, "An error occured while performing request.", err));
+    throw new APIError(500, "An error occured while performing request.", err);
   }
  
 }
@@ -36,7 +37,7 @@ const modifyPostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    throw (new APIError(500, "An error occured while performing request.", err));
+    throw new APIError(500, "An error occured while performing request.", err);
   }
 }
 
@@ -62,7 +63,7 @@ const replacePostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    throw (new APIError(500, "An error occured while performing request.", err));
+    throw new APIError(500, "An error occured while performing request.", err);
   }
 
 }
@@ -71,7 +72,7 @@ const replacePostFromDb = async(id, post) => {
 const deletePostFromDb = async(id) => {
   try {
     let result = await Post.deleteOne({ id : id })
-
+    
     let response = {
       isAcknowledged: !!result.acknowledged,
       isSuccessful: !!result.deletedCount,
@@ -80,7 +81,7 @@ const deletePostFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    throw (new APIError(500, "An error occured while performing request.", err));
+    throw new APIError(500, "An error occured while performing request.", err);
   }
 }
 

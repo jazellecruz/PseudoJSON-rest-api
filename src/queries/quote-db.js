@@ -1,76 +1,85 @@
 const Quote = require("../models/quote");
-const ErrorMessage = require("../classes/error");
+const {APIError, ErrorMessage} = require("../classes/error");
 const { stringify, checkIfProcessed } = require("../helpers/helpers")
 // functions for modyfing the actual database
 
-// add new user
+// add new quote
 const addQuoteOnDb = async(entry) => {
-  let response;
-  let { id, author, quote, category } = entry
+  try{
+    let { id, author, quote, category } = entry
+    
+    let newQuote = new Quote({
+      id: id,
+      author: author,
+      quote: quote,
+      category: category,
+    });
   
-  let newQuote = new Quote({
-    id: id,
-    author: author,
-    quote: quote,
-    category: category,
-  });
+    let response = await newQuote.save();
 
-  await newQuote.save()
-  .then(res => response = new ApiResponse(res))
-  .catch(err => response = new ErrorMessage("An Error occured while posting data.", error = stringify(err.message)))
-
-  return response;
+    return response;
+  } catch(err) {
+    throw new APIError(500, "An error occured while performing request.", err);
+  }
 }
 
 // modify a single user
 const modifyQuoteFromDb = async(id, entry) => {
-  let response;
+  try{
+    let result = await Quote.updateOne({ id : id }, { $set : entry });
 
-  try {
-    let result = await Quote.updateOne({ id : id }, { $set : entry })
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PATCH")
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.modifiedCount,
+      modifiedCount: result.modifiedCount,
+    }
+
+    return response
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
+    throw new APIError(500, "An error occured while performing request.", err);
   }
- 
-  return response;
+
 }
 
 // replace a whole document
+// id cannot be replaced
 const replaceQuoteFromDb = async(id, entry) => {
-  let response;
-  let quoteId = id;
-  let { newId, author, quote, category } = entry;
-
   try {
+    let quoteId = id;
+    let { author, quote, category } = entry;
     let result = await Quote.replaceOne({ id : quoteId },
-      {
-        id : newId,
+      { id : quoteId,
         author: author,
         quote: quote,
-        category: category,
-      });
-    response = checkIfProcessed(result.acknowledged, result.modifiedCount, "PUT")
+        category: category });
 
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.modifiedCount,
+      modifiedCount: result.modifiedCount,
+    }
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An Error occured while performing request.", error = stringify(err.message))
+    throw new APIError(500, "An error occured while performing request.", err);
   }
- 
-  return response;
 }
 
 //delete a single user
 const deleteQuoteFromDb = async(id) => {
-  let response;
-  
-  try {
+  try{
     let result = await Quote.deleteOne({ id : id });
-    response = checkIfProcessed(result.acknowledged, result.deletedCount, "DELETE")
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing deletion.", error = stringify(err.message))
-  }
 
-  return response;
+    let response = {
+      isAcknowledged: !!result.acknowledged,
+      isSuccessful: !!result.deletedCount,
+      deletedCount: result.deletedCount,
+    }
+
+    return response;
+  } catch(err) {
+    throw new APIError(500, "An error occured while performing request.", err);
+  }
 }
 
 module.exports = { addQuoteOnDb, modifyQuoteFromDb, replaceQuoteFromDb, deleteQuoteFromDb }
