@@ -1,73 +1,69 @@
-const User = require("../models/user")
-const ApiResponse = require("../classes/apiResponse")
-const ErrorMessage = require("../classes/error");
-const { stringify, checkIfProcessed } = require("../helpers/helpers");
+const User = require("../models/user");
+const ApiResponse = require("../classes/apiResponse");
+const {ClientError, ServerError} = require("../classes/error");
+const { stringify } = require("../helpers/helpers");
 const { options } = require("../constants/constants");
 
 //get all users
 const getUsers = async(query) => {
-  let response;
-  let limit = query.pageSize
-  let page = query.page - 1
-
   try {
+    let limit = query.pageSize
+    let page = query.page - 1
+
     let result = await User.find(query, options)
-        .limit(limit)
-        .skip(limit * page)
-        .sort({ id : 1 })
-    
-    let totalCountDocs = await User.countDocuments(query)
+    .limit(limit)
+    .skip(limit * page)
+    .sort({ id : 1 });
+
+    let totalCountDocs = await User.countDocuments(query);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `Resource with conditions: ${stringify(query)} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404)
-    } else {
-      response = new ApiResponse(result, 
-                  "users", 
-                  totalCountDocs, 
-                  page = query.page, 
-                  limit = limit)
-    }
+      throw new ClientError(null ,404, `User with conditions: ${stringify(query)} does not exist.`, null)
+    } 
 
+    let response = new ApiResponse(
+      result, 
+      "users", 
+      totalCountDocs, 
+      page = query.page, 
+      limit = limit
+    );
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+    if(err instanceof ClientError){
+      throw err;
+    }  
 
-  return response
+    throw new ServerError(err);
+  }
 }
+
 
 // get user by id
 const getUserById = async(id) => {
-  let response;
-
   try {
     let result = await User.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `User with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      response = result
+      throw new ClientError(null ,404, `User with id : ${id} does not exist.`, null)
     }
 
+    return result[0];
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+    if(err instanceof ClientError){
+      throw err;
+    }  
 
-  return response
+    throw new ServerError(err);
+  }
 }
 
 //add a new user 
 const addUser = async(entry) => {
-  let response;
-  let { id, firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
-
   try {
+    let { id, firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+
     const newUser = new User({
       id: id,
       firstName: firstName,
@@ -78,7 +74,7 @@ const addUser = async(entry) => {
       email: email,
       phone: phone,
       imgUrl: imgUrl
-    })
+    });
   
     response = {
       user: newUser,
@@ -86,121 +82,112 @@ const addUser = async(entry) => {
       addedOn: new Date().toUTCString()
     }
 
+    return response;
   } catch(err){
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+    throw new ServerError(err);
   }
-
-  return response
 }
 
 // update or modify a user 
 const modifyUser = async(id, entry) => {
-  let response;
-  let { id : newId , firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
-
   try {
+    let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = entry;
+
     let result = await User.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `User with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      let modifiedUser = {
-        id: id,
-        firstName: firstName || result[0].firstName,
-        lastName: lastName || result[0].lastName,
-        middleName: middleName || result.middleName,
-        gender: gender || result[0].gender,
-        birthDate: birthDate || result[0].birthDate,
-        email: email || result[0].email,
-        phone: phone || result[0].phone,
-        imgUrl: imgUrl || result[0].imgUrl
-      }
+      throw new ClientError(null ,404, `User with id : ${id} does not exist.`, null)
+    } 
 
-      response = {
-        user: modifiedUser,
-        isModified: true,
-        modifiedOn: new Date().toUTCString()
-      }
-
+    let modifiedUser = {
+      id: id,
+      firstName: firstName || result[0].firstName,
+      lastName: lastName || result[0].lastName,
+      middleName: middleName || result.middleName,
+      gender: gender || result[0].gender,
+      birthDate: birthDate || result[0].birthDate,
+      email: email || result[0].email,
+      phone: phone || result[0].phone,
+      imgUrl: imgUrl || result[0].imgUrl
     }
-    
-  } catch(err){
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
 
-  return response
+    let response = {
+      user: modifiedUser,
+      isModified: true,
+      modifiedOn: new Date().toUTCString()
+    }
+
+    return response;
+  } catch(err){
+    if(err instanceof ClientError){
+      throw err;
+    }  
+
+    throw new ServerError(err);
+  }
 }
 
 // replace a user
-// NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
-// I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID 
 const replaceUser = async(id, user) => {
-  let response
-  let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = user;
-
   try {
+    let { firstName, lastName, middleName, gender, birthDate, email, phone, imgUrl } = user;
     let result = await User.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `User with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      let newUser = new User({
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        middleName: middleName,
-        gender: gender,
-        birthDate: birthDate,
-        email: email,
-        phone: phone,
-        imgUrl: imgUrl
-      })
+      throw new ClientError(null ,404, `User with id : ${id} does not exist.`, null)
+    } 
 
-      response = {
-        user: newUser,
-        isReplaced: true,
-        replacedOn: new Date().toUTCString()
-      }
+    let newUser = new User({
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      middleName: middleName,
+      gender: gender,
+      birthDate: birthDate,
+      email: email,
+      phone: phone,
+      imgUrl: imgUrl
+    });
+
+    let  response = {
+      user: newUser,
+      isReplaced: true,
+      replacedOn: new Date().toUTCString()
     }
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
 
-  return response
+    return response;
+  } catch(err) {
+    if(err instanceof ClientError){
+      throw err;
+    }  
+
+    throw new ServerError(err);
+  }
 }
+
 //delete a user
 const deleteUser = async(id) => {
-  let response
-
   try {
     let result = await User.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `User with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      response = {
-        user: result,
-        isDeleted: true,
-        deletedOn: new Date().toUTCString()
-      }
-    }
-  } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+      throw new ClientError(null ,404, `User with id : ${id} does not exist.`, null)
+    } 
 
-  return response
+    let response = {
+      user: result,
+      isDeleted: true,
+      deletedOn: new Date().toUTCString()
+    }
+
+    return response;
+  } catch(err) {
+    if(err instanceof ClientError){
+      throw err;
+    }  
+
+    throw new ServerError(err);
+  }
 }
 
 

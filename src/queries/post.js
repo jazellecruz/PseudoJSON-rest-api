@@ -1,173 +1,173 @@
-
 const Post = require("../models/post");
 const { options } = require("../constants/constants")
 const ApiResponse = require("../classes/apiResponse")
-const { stringify, checkIfProcessed } = require("../helpers/helpers");
-const ErrorMessage = require("../classes/error");
+const { stringify } = require("../helpers/helpers");
+const {ClientError, ServerError} = require("../classes/error");
 
 //get all posts 
 const getPosts = async(query) => {
-  let response;
-  let limit = query.pageSize || 20;
-  let page = query.page - 1 || 0;
-
   try {
+    let limit = query.pageSize || 20;
+    let page = query.page - 1 || 0;
+
     let result = await Post.find(query, options)
         .limit(limit)
         .skip(limit * page)
         .sort({id : 1});
 
-    let totalCountDocs = await Post.countDocuments(query)
+    let totalCountDocs = await Post.countDocuments(query);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `Posts with conditions: ${stringify(query)} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404)
-    } else {
-      response = new ApiResponse(result, 
-                  "posts", 
-                  totalCountDocs, 
-                  page = query.page, 
-                  limit = limit)
-    }
+      throw new ClientError(null ,404, `Posts with conditions: ${stringify(query)} does not exist.`, null)
+    } 
 
+    let response = new ApiResponse(
+      result, 
+      "posts", 
+      totalCountDocs, 
+      page = query.page, 
+      limit = limit
+    );
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+    if(err instanceof ClientError){
+      throw err;
+    }  
 
-  return response
+    throw new ServerError(err);
+  }
 }
 
 // get post by id
 const getPostById = async(id) => {
-  let response;
+  try{
 
-  try {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `Post with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      response = result
-    }
+      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
+    } 
 
+    let response = result[0];
+
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+    console.log(err)
+    if(err instanceof ClientError){
+      throw err;
+    }  
+
+    throw new ServerError(err);
   }
-  return response
 }
 
 // add a new post 
 const addPost = async(post) => {
-  let response;
-  let { id, title, body } = post
- 
   try{
-    newPost = {
+    let { id, title, body } = post;
+
+    let newPost = {
       id: id,
       title: title,
       body: body
     }
-    response = {
+
+    let response = {
       post: newPost,
       isAdded: true,
       addedOn: new Date().toUTCString()
     }
-  }catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+
+    return response;
+  } catch(err) {
+    throw new ServerError(err);
   }
 
-  return response
 }
 
 // modify a post 
 const modifyPost = async(id, post) => {
-  let response;
-  let { title, body } = post
   try{
+    let { title, body } = post
+
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `Post with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      let modifiedPost = {
-        id: id,
-        title: title || result[0].title,
-        body: body || result[0].title
-      }
-
-      response ={
-        post: modifiedPost,
-        isModified: true,
-        modifiedOn: new Date().toUTCString()
-      }
+      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
     }
-  }catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+    
+    let modifiedPost = {
+      id: id,
+      title: title || result[0].title,
+      body: body || result[0].title
+    }
 
-  return response
+    let response ={
+      post: modifiedPost,
+      isModified: true,
+      modifiedOn: new Date().toUTCString()
+    }
+
+    return response;
+  } catch(err) {
+    if(err instanceof ClientError){
+      throw err;
+    }  
+
+    throw new ServerError(err);
+  }
 }
 
 // replace a post 
 // NOTE: I DO NOT ADVISE TO REPLACE A WHOLE DOCUMENT
 // I SUGGEST TO CREATE A NEW ONE INSTEAD TO AVOID DUPLICATION OF ID
 const replacePost = async(id, post) => {
-  let response;
-  let { title, body } = post
-  
   try{
+    let { title, body } = post;
+
     let replacedPost = {
       id: id,
       title: title,
       body: body
     }
-    response = {
+
+    let response = {
       post : replacedPost,
       isReplaced: true,
       replacedOn: new Date().toUTCString()
     }
-  }catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
+
+    return response;
+  } catch(err) {
+    throw new ServerError(err);
   }
 
-  return response
+
 }
 
 const deletePost = async(id) => {
-  let response;
-
   try {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      response = new ErrorMessage(
-        `Post with id: ${id} does not exist.`,
-        error = "Resources Not Found.",
-        code = 404
-        )
-    } else {
-      response = {
-        post: result,
-        isDeleted: true,
-        deletedOn: new Date().toUTCString()
-      }
+      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
+    } 
+    
+    let response = {
+      post: result[0],
+      isDeleted: true,
+      deletedOn: new Date().toUTCString()
     }
 
+    return response;
   } catch(err) {
-    response = new ErrorMessage("An error occured while performing request.", error = stringify(err.message))
-  }
+    if(err instanceof ClientError){
+      throw err;
+    }  
 
-  return response
+    throw new ServerError(err);
+  }
 }
 
 
