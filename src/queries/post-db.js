@@ -1,6 +1,5 @@
 const Post = require("../models/post");
-const {ErrorMessage, APIError} = require("../classes/error");
-const { stringify, checkIfProcessed } = require("../helpers/helpers");
+const {ServerError} = require("../classes/error");
 
 // functions for modyfing the actual database
 
@@ -19,7 +18,8 @@ const addPostOnDb = async(post) => {
 
     return response;
   } catch(err){
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
  
 }
@@ -37,7 +37,8 @@ const modifyPostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -63,7 +64,8 @@ const replacePostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 
 }
@@ -81,7 +83,8 @@ const deletePostFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 

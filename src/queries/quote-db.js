@@ -1,6 +1,5 @@
 const Quote = require("../models/quote");
-const {APIError, ErrorMessage} = require("../classes/error");
-const { stringify, checkIfProcessed } = require("../helpers/helpers")
+const {ServerError} = require("../classes/error");
 // functions for modyfing the actual database
 
 // add new quote
@@ -19,7 +18,8 @@ const addQuoteOnDb = async(entry) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -36,7 +36,8 @@ const modifyQuoteFromDb = async(id, entry) => {
 
     return response
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 
 }
@@ -47,6 +48,7 @@ const replaceQuoteFromDb = async(id, entry) => {
   try {
     let quoteId = id;
     let { author, quote, category } = entry;
+    
     let result = await Quote.replaceOne({ id : quoteId },
       { id : quoteId,
         author: author,
@@ -61,7 +63,8 @@ const replaceQuoteFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -78,7 +81,8 @@ const deleteQuoteFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 

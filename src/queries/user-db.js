@@ -1,6 +1,5 @@
 const User = require("../models/user")
-const {ErrorMessage, APIError} = require("../classes/error");
-const { stringify, checkIfProcessed } = require("../helpers/helpers");
+const {ServerError} = require("../classes/error");
 
 // functions for modyfing the actual database
 
@@ -35,7 +34,8 @@ const addUserOnDb = async(entry) => {
 
     return response; 
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -52,7 +52,8 @@ const modifyUserFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -90,7 +91,8 @@ const replaceUserFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
@@ -107,7 +109,8 @@ const deleteUserFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    throw new APIError(500, "An error occured while performing request.", err);
+    console.log(err);
+    throw new ServerError(err);
   }
 }
 
