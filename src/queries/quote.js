@@ -18,7 +18,12 @@ const getQuotes = async(query) => {
     let totalCountDocs = await Quote.countDocuments(query);
 
     if(!result.length) {
-      throw new ClientError(null, 404, `Quotes with conditions: ${stringify(query)} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404, 
+        `Quotes with conditions: ${stringify(query)} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     let response = new ApiResponse(
@@ -47,7 +52,12 @@ const getQuoteById = async(id) => {
     let result = await Quote.find({ id : id }, options);
 
     if(!result.length) {
-      throw new ClientError(null, 404,`Quote with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404,
+        `Quote with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     return result[0];
@@ -98,7 +108,12 @@ const modifyQuote = async(id, entry) => {
     let result = await Quote.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404,`Quote with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404,
+        `Quote with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     let modifiedQuote = {
@@ -136,7 +151,12 @@ const replaceQuote = async(id, entry) => {
     let result = await Quote.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404,`Quote with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404,
+        `Quote with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     }
 
     let modifiedQuote = {
@@ -170,7 +190,12 @@ const deleteQuote = async(id) => {
     let result = await Quote.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404,`Quote with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404,
+        `Quote with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     let response = {

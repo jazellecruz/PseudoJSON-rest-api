@@ -18,7 +18,12 @@ const getPosts = async(query) => {
     let totalCountDocs = await Post.countDocuments(query);
 
     if (!result.length) {
-      throw new ClientError(null ,404, `Posts with conditions: ${stringify(query)} does not exist.`, null)
+      throw new ClientError(
+        null ,
+        404, 
+        `Posts with conditions: ${stringify(query)} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     let response = new ApiResponse(
@@ -46,7 +51,12 @@ const getPostById = async(id) => {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404, 
+        `Post with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     } 
 
     let response = result[0];
@@ -94,7 +104,12 @@ const modifyPost = async(id, post) => {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404, 
+        `Post with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+      );
     }
     
     let modifiedPost = {
@@ -151,7 +166,12 @@ const deletePost = async(id) => {
     let result = await Post.find({ id : id }, options);
 
     if (!result.length) {
-      throw new ClientError(null, 404, `Post with id: ${id} does not exist.`, null);
+      throw new ClientError(
+        null, 
+        404, 
+        `Post with id: ${id} does not exist.`, 
+        "Resource Not Found: No resource found matching the provided criteria."
+        );
     } 
     
     let response = {
