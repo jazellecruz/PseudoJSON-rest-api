@@ -9,8 +9,8 @@ const quotes = require("./src/routes/quotes");
 const posts = require("./src/routes/posts");
 const users = require("./src/routes/users");
 const pages = require("./src/routes/pages");
-const {APIError, ClientError} = require("./src/classes/error");
 const errorHandler = require("./src/middlewares/error");
+const connectToDB = require("./src/db/mongoose");
 
 // routes to modify db
 const quotesDb = require("./src/routes/quotes-db");
@@ -18,10 +18,11 @@ const postsDb = require("./src/routes/posts-db");
 const usersDb = require("./src/routes/users-db");
 
 // auth routes
-const admin = require("./src/routes/admin")
+const admin = require("./src/routes/admin");
 
 //Database connection
-mongoose.connect(process.env.MONGODB_DEV, {useNewUrlParser: true});
+// mongoose.connect(process.env.MONGODB_DEV, {useNewUrlParser: true});
+connectToDB();
 
 app.use(cors());
 app.use(express.json());
