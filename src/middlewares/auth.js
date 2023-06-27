@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
-const Admin = require("../models/admin")
-const {options}= require("../constants/constants")
+const Admin = require("../models/admin");
+const {options}= require("../constants/constants");
+const {ClientError, ServerError} = require("../classes/error");
 
 const authenticateUser = async(req, res, next) => {
   if(process.env.NODE_ENV === "development") {
@@ -13,7 +14,7 @@ const authenticateUser = async(req, res, next) => {
     let cookie = req[Object.getOwnPropertySymbols(req)[1]].cookie
     
     if(!cookie) {
-      return res.status(401).send("No token for authentication received.");
+      throw new ClientError(null, 401, "No token for authentication received.", null);
     }
 
     let accessToken = cookie.split("=")[1];
@@ -21,25 +22,30 @@ const authenticateUser = async(req, res, next) => {
     let foundUser = await Admin.find({username : decoded.user}, options);
 
     if(!foundUser[0]){
-      return res.send(401).send("YOU SHALL NOT PASS");
+      throw new ClientError(null, 401, "Unauthorized", null);     
     }
 
     next();
   } catch(err) {
-    // JWT ERRORS
+    // catch the err thrown when there is no cookie in the headers
+    if(err instanceof ClientError) {
+      throw err;  
+    }
+
+    // Client side JWT errors
     if(err.name === "JsonWebTokenError"){
-      return res.status(401).send("Invalid Token");
+      throw new ClientError(null, 401, "Invalid Token", null);
     }
 
     if(err.name === "TokenExpiredError"){
-      return res.status(401).send("Expired Token. Relogin again.")
+      throw new ClientError(null, 401, "Expired Token. Relogin again.", null);
     }
 
     if(err.name === "NotBeforeError"){
-      return res.status(401).send("Token not yet active for verification.")
+      throw new ClientError(null, 401, "Token not yet active for verification.", null);
     }
 
-    res.status(500).send("There was an error validating your token.")
+    throw new ServerError(err);
   }
 
 }
