@@ -9,6 +9,8 @@ const quotes = require("./src/routes/quotes");
 const posts = require("./src/routes/posts");
 const users = require("./src/routes/users");
 const pages = require("./src/routes/pages");
+const {APIError, ClientError} = require("./src/classes/error");
+const errorHandler = require("./src/middlewares/error");
 
 // routes to modify db
 const quotesDb = require("./src/routes/quotes-db");
@@ -19,7 +21,7 @@ const usersDb = require("./src/routes/users-db");
 const admin = require("./src/routes/admin")
 
 //Database connection
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_DEV, {useNewUrlParser: true});
 
 app.use(cors());
 app.use(express.json());
@@ -43,8 +45,13 @@ app.use("/private/users", usersDb)
 // nonexisting routes
 app.get("*", (req, res) => {
   res.status(404).send("Page Not Found");
-})
+});
+
+// custom error handler. All errors will be handled here.
+app.use(errorHandler);
 
 app.listen(8000, '0.0.0.0', (req, res) => {
-  console.log("Howdy from port 8000!")
+  let env = process.env.NODE_ENV
+  console.log(`Currently running on ${env} enviroment.`)
+  console.log("Huzzah! Successfully running on port 8000.")
 });
