@@ -1,11 +1,12 @@
 class ClientError extends Error {
-  constructor(type, httpCode, clientMessage, err){
+  constructor(status, httpCode, clientMessage, err){
     super(err);
 
-    this.type = type;
+    this.status = status;
     this.httpCode = httpCode;
-    this.clientMessage = clientMessage
+    this.clientMessage = clientMessage;
   }
+
 }
 
 class ServerError extends Error {
