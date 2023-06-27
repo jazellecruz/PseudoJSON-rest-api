@@ -1,27 +1,9 @@
-const ErrorMessage = require("../classes/error")
 
 const stringify = (entry) => {
   let string = JSON.stringify(entry)
   string =  string.split('"').join(' ').split('\\').join('')
 
   return string
-}
-
-const checkIfProcessed = (acknowledged, modified, method) => {
-  let response
-
-  if (acknowledged && modified) {
-    response = {
-      message: "Request successfully fulfilled!",
-      method: action,
-      acknowlegded: true,
-      processed: true,
-    }
-  } else {
-    response = new ErrorMessage("Request is acknowledged but not processed!")
-  }
-
-  return response
 }
 
 const isArrayOrString = (data) => {
@@ -65,4 +47,4 @@ const sanitizeInput = (input) => {
 
 }
 
-module.exports = { stringify, checkIfProcessed, isArrayOrString, sanitizeInput }
+module.exports = { stringify, isArrayOrString, sanitizeInput }
