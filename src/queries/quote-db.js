@@ -34,7 +34,7 @@ const modifyQuoteFromDb = async(id, entry) => {
       modifiedCount: result.modifiedCount,
     }
 
-    return response
+    return response;
   } catch(err) {
     console.log(err);
     throw new ServerError(err);
