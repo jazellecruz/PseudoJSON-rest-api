@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const Admin = require("../models/admin");
-const {options} = require("../constants/constants")
+const {options} = require("../constants/constants");
+const {ServerError} = require("../classes/error")
 
 const verifyAdminUser = async(username, password) => {
   try{
@@ -10,9 +11,11 @@ const verifyAdminUser = async(username, password) => {
 
     let isPasswordMatched = await bcrypt.compare(password, foundUser[0].password)
 
-    return isPasswordMatched;
+    if(!isPasswordMatched) return false
+
+    return foundUser[0].username
   } catch(err){
-    console.log("An error occured in finding user from database:", err)
+    throw new ServerError(err);
   }
 
 }
