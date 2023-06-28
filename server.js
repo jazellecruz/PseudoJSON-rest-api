@@ -31,7 +31,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // authentication routes
-app.use("/", admin)
+app.use("/admin", admin)
 
 app.use("/", pages);
 app.use("/quotes", quotes);
