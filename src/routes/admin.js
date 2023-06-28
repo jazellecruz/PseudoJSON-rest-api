@@ -1,34 +1,40 @@
 const router = require("express").Router();
 const Admin = require("../models/admin");
 const bcrypt = require("bcrypt")
-const {generateToken} = require("../utils/jwt")
-const {sanitizeInput} = require("../helpers/helpers")
-const {verifyAdminUser} = require("../queries/admin");
+const { generateToken } = require("../utils/jwt")
+const { sanitizeInput } = require("../helpers/helpers")
+const { verifyAdminUser } = require("../queries/admin");
+const { ServerError, ClientError } = require("../classes/error")
+const saltRounds = 10;
 
-router.post("/login", async(req, res) => {
+router.post("/login", async(req, res, next) => {
   let username = sanitizeInput(req.body.username);
   let password = sanitizeInput(req.body.password);
 
   try{
-    let isUserVerified = await verifyAdminUser(username, password)
+    let verifiedUser = await verifyAdminUser(username, password)
 
-    if(!isUserVerified) {
-      return res.sendStatus(401);
+    if(!verifiedUser) {
+      throw new ClientError(null, 401, "Access denied.", "Unauthorized: Invalid user credentials.")
     }
 
-    let accessToken = generateToken(foundUser[0].username)
+    let accessToken = generateToken(verifiedUser);
 
     res.cookie("_auth", accessToken, {
       httpOnly: true,
       secure: true
     }).send("Proceed");
 
-  } catch(err){  
-    res.send(err)
+  } catch(err){ 
+    if(err instanceof ClientError) {
+      return next(err);
+    }
+
+    next(new ServerError(err));
   }
 });
 
-router.post("/sign-up", async(req, res) => {
+router.post("/sign-up", async(req, res, next) => {
   let id = sanitizeInput(req.body.id);
   let username = sanitizeInput(req.body.username);
   let password = sanitizeInput(req.body.password);
@@ -42,10 +48,11 @@ router.post("/sign-up", async(req, res) => {
       password: hashedPassword
     });
 
-    let response = await newAdmin.save()
-    res.send(response)
+    await newAdmin.save();
+    
+    res.send("Successfully added admin user.");
   } catch(err) {
-    console.log(err)
+    next(new ServerError(err));
   }
 
 });

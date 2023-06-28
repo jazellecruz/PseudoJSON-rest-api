@@ -8,13 +8,14 @@ const authenticateUser = async(req, res, next) => {
     return next();
   }
   
+  // this is only for postman
   try{
     // Object.getOwnPropertySymbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols
     // Symbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
     let cookie = req[Object.getOwnPropertySymbols(req)[1]].cookie
     
     if(!cookie) {
-      throw new ClientError(null, 401, "No token for authentication received.", null);
+      throw new ClientError(null, 401, "No token for authentication received.", "Unauthorized: No token received");
     }
 
     let accessToken = cookie.split("=")[1];
@@ -22,30 +23,30 @@ const authenticateUser = async(req, res, next) => {
     let foundUser = await Admin.find({username : decoded.user}, options);
 
     if(!foundUser[0]){
-      throw new ClientError(null, 401, "Unauthorized", null);     
+      throw new ClientError(null, 401, "Access denied", "Unauthorized: Invalid user credentials");     
     }
 
     next();
   } catch(err) {
-    // catch the err thrown when there is no cookie in the headers
+    // catch and rethrow client error to avoid duplication
     if(err instanceof ClientError) {
-      throw err;  
+      return next(err);  
     }
 
-    // Client side JWT errors
+    // catch the errors thrown by jwt
     if(err.name === "JsonWebTokenError"){
-      throw new ClientError(null, 401, "Invalid Token", null);
+      return next(new ClientError(null, 401, "Invalid Token", "JWT Error: Invalid token"));
     }
 
     if(err.name === "TokenExpiredError"){
-      throw new ClientError(null, 401, "Expired Token. Relogin again.", null);
+      return next(new ClientError(null, 401, "Expired Token. Relogin again.", "JWT Error: Expired token"));
     }
 
     if(err.name === "NotBeforeError"){
-      throw new ClientError(null, 401, "Token not yet active for verification.", null);
+      return next(new ClientError(null, 401, "Token not yet active for verification.", "JWT Error: Inactive token"));
     }
 
-    throw new ServerError(err);
+    next(new ServerError(err));
   }
 
 }
