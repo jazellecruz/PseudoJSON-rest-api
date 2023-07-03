@@ -5,11 +5,12 @@ const { addQuoteOnDb,
         deleteQuoteFromDb } = require("../queries/quote-db");
 const { authenticateUser } = require("../middlewares/auth");
 
+
 router.use(authenticateUser);
 
 router.post("/", async(req, res, next) => {
   try{
-    let response = await addQuoteOnDb(req.body)
+    let response = await addQuoteOnDb(req.body);
     res.send(response);
   } catch(err) {
     next(err);

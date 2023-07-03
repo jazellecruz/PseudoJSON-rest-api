@@ -1,6 +1,6 @@
 const Post = require("../models/post");
-const { options } = require("../constants/constants")
-const ApiResponse = require("../classes/apiResponse")
+const { options } = require("../constants/constants");
+const ApiResponse = require("../classes/apiResponse");
 const { stringify } = require("../helpers/helpers");
 const {ClientError, ServerError} = require("../classes/error");
 
@@ -63,7 +63,6 @@ const getPostById = async(id) => {
 
     return response;
   } catch(err) {
-    console.log(err)
     if(err instanceof ClientError){
       throw err;
     }  

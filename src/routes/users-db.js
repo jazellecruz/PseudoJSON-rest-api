@@ -5,6 +5,7 @@ const { addUserOnDb,
         deleteUserFromDb } = require("../queries/user-db");
 const { authenticateUser } = require("../middlewares/auth");
 
+
 router.use(authenticateUser);
 
 router.post("/", async(req, res, next) => {

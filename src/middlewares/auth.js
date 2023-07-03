@@ -4,10 +4,6 @@ const {options}= require("../constants/constants");
 const {ClientError, ServerError} = require("../classes/error");
 
 const authenticateUser = async(req, res, next) => {
-  if(process.env.NODE_ENV === "development") {
-    return next();
-  }
-  
   // this is only for postman
   try{
     // Object.getOwnPropertySymbols => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertySymbols

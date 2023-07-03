@@ -36,8 +36,6 @@ const getQuotes = async(query) => {
 
     return response;
   } catch(err) {
-    console.log(err);
-
     if(err instanceof ClientError){
       throw err;
     }  
@@ -61,9 +59,7 @@ const getQuoteById = async(id) => {
     } 
 
     return result[0];
-  } catch(err) {
-    console.log(err);
-
+  } catch(err) {  
     if(err instanceof ClientError){
       throw err;
     }  
@@ -94,8 +90,6 @@ const addQuote = async(entry) => {
 
     return response;
   } catch(err) {
-    console.log(err)
-
     throw new ServerError(err);
   }
 }
@@ -131,8 +125,6 @@ const modifyQuote = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
-
     if(err instanceof ClientError){
       throw err;
     }  
@@ -174,8 +166,6 @@ const replaceQuote = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
-
     if(err instanceof ClientError){
       throw err;
     }  
@@ -206,8 +196,6 @@ const deleteQuote = async(id) => {
 
     return response;
   } catch(err) {
-    console.log(err);
-
     if(err instanceof ClientError){
       throw err;
     }  

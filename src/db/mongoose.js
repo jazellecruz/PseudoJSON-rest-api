@@ -4,7 +4,7 @@ const MAX_RETRY_ATTEMPTS = 5;
 
 const connectToDB = async(retryCount = 0) => {
   try{
-   await mongoose.connect(process.env.MONGODB_DEV, {
+   await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

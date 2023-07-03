@@ -18,7 +18,6 @@ const addPostOnDb = async(post) => {
 
     return response;
   } catch(err){
-    console.log(err);
     throw new ServerError(err);
   }
  
@@ -37,7 +36,6 @@ const modifyPostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -64,7 +62,6 @@ const replacePostFromDb = async(id, post) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 
@@ -83,7 +80,6 @@ const deletePostFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }

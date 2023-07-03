@@ -34,7 +34,6 @@ const addUserOnDb = async(entry) => {
 
     return response; 
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -52,7 +51,6 @@ const modifyUserFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -91,7 +89,6 @@ const replaceUserFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -109,7 +106,6 @@ const deleteUserFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }

@@ -1,7 +1,6 @@
 
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors")
 const hljs = require('highlight.js');
@@ -21,7 +20,6 @@ const usersDb = require("./src/routes/users-db");
 const admin = require("./src/routes/admin");
 
 //Database connection
-// mongoose.connect(process.env.MONGODB_DEV, {useNewUrlParser: true});
 connectToDB();
 
 app.use(cors());
@@ -52,7 +50,5 @@ app.get("*", (req, res) => {
 app.use(errorHandler);
 
 app.listen(8000, '0.0.0.0', (req, res) => {
-  let env = process.env.NODE_ENV
-  console.log(`Currently running on ${env} enviroment.`)
-  console.log("Huzzah! Successfully running on port 8000.")
+  console.log("Huzzah! Successfully running on port 8000.");
 });

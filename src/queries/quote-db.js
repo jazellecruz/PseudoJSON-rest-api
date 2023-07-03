@@ -18,7 +18,6 @@ const addQuoteOnDb = async(entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -36,7 +35,6 @@ const modifyQuoteFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 
@@ -63,7 +61,6 @@ const replaceQuoteFromDb = async(id, entry) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
@@ -81,7 +78,6 @@ const deleteQuoteFromDb = async(id) => {
 
     return response;
   } catch(err) {
-    console.log(err);
     throw new ServerError(err);
   }
 }
